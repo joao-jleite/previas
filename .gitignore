@@ -1,1 +1,5 @@
 __pycache__/
+previas.json
+envios.json
+leads/
+*.md.priv
