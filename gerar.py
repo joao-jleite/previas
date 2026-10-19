@@ -228,7 +228,8 @@ def pagina(lead: dict) -> str:
     local = ", ".join(x for x in [lead.get("bairro"), cidade] if x)
     seg_txt = frase(lead.get("segmento") or "")
     servicos = [frase(s) for s in (lead.get("servicos") or []) if s][:6]
-    difs = [frase(d) for d in (lead.get("diferenciais") or []) if d][:4]
+    # Métrica de rede social (seguidores, check-ins) não é argumento de site: fica de fora
+    difs = [frase(d) for d in (lead.get("diferenciais") or []) if d and not re.search(r"seguidor|check-in|curtida|follower", d, re.I)][:4]
     tel = so_digitos(lead.get("whatsapp_ou_telefone", ""))
     celular = len(tel) == 13  # 55 + DDD + 9 dígitos = celular/WhatsApp
     if celular:
@@ -254,7 +255,9 @@ def pagina(lead: dict) -> str:
         f'<article class="card rev"><span class="ic">{svg(c["icone"], 26)}</span>'
         f'<h3>{e(s)}</h3><p>{e(c["desc"][i % len(c["desc"])])}</p></article>'
         for i, s in enumerate(servicos))
-    lista = "".join(f"<li>{e(d)}</li>" for d in (difs or c["desc"][:3]))
+    # Completa a lista do "Sobre" com os pontos do segmento quando há poucos diferenciais
+    itens = (difs[1:] if len(difs) > 1 else []) + [d for d in c["desc"] if d not in difs]
+    lista = "".join(f"<li>{e(d)}</li>" for d in itens[:3])
     passos = "".join(f'<div class="passo rev"><span>{i + 1}</span><h3>{e(p)}</h3></div>' for i, p in enumerate(c["passos"]))
     contato = []
     if end:
@@ -266,7 +269,13 @@ def pagina(lead: dict) -> str:
     if lead.get("email"):
         contato.append(f'<dt>E-mail</dt><dd><a href="mailto:{e(lead["email"])}">{e(lead["email"])}</a></dd>')
     flutuante = f'<a class="flt" href="{link}" {alvo} aria-label="Fale pelo {canal}">{icon}</a>' if tel else ""
-    selo = difs[0] if difs else (f"Atendimento em {cidade}" if cidade else seg_txt)
+    # Selo da foto: prefere nota/tempo de casa; senão, a cidade. Não repete o que já está nos chips.
+    forte = [d for d in difs if re.search(r"nota|avalia|anos|desde|★", d, re.I)]
+    selo = forte[0] if forte else (f"Atendimento em {cidade}" if cidade else seg_txt)
+    escola = c is SEGMENTOS[8][2]
+    rot = "Turmas" if escola else "Serviços"
+    tit_serv = "Uma proposta para cada fase" if escola else "O que oferecemos"
+    sub_serv = "Do primeiro dia à rotina, tudo pensado para o desenvolvimento das crianças." if escola else "Atendimento pensado para você, do primeiro contato ao resultado."
     em_cidade = f" em {e(cidade)}" if cidade else ""
 
     return f"""<!doctype html>
@@ -278,20 +287,20 @@ def pagina(lead: dict) -> str:
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body style="{var}">
-<div class="aviso">Prévia de site criada por João Leite para {art} {e(curto)}. Não é o site oficial. <a href="mailto:joao.jleitewrk@gmail.com">joao.jleitewrk@gmail.com</a></div>
+<div class="aviso">Prévia de site criada por João Leite para {"o" if art == "do" else "a"} {e(curto)}. Não é o site oficial. <a href="mailto:joao.jleitewrk@gmail.com">joao.jleitewrk@gmail.com</a></div>
 <nav><div class="wrap"><a class="marca" href="#inicio"><i>{e(inicial)}</i><span>{e(curto)}</span></a>
-<div class="links"><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a><a href="#como">Como funciona</a><a href="#contato">Contato</a></div>
+<div class="links"><a href="#servicos">{rot}</a><a href="#sobre">Sobre</a><a href="#como">Como funciona</a><a href="#contato">Contato</a></div>
 <a class="btn sm" href="{link}" {alvo}>{e(c['cta'])}</a></div></nav>
 <header class="hero" id="inicio"><div class="wrap">
 <div><span class="tag">{e(seg_txt)}{(" · " + e(local)) if local else ""}</span>
 <h1>{e(c['titulo'])}</h1>
-<p class="lead">{e(seg_txt)} com atenção de verdade{em_cidade}. Fale com a equipe {art} {e(curto)} e {e(c['cta'].lower())} em poucos minutos pelo {canal}.</p>
-<div class="acoes"><a class="btn" href="{link}" {alvo}>{icon}{e(c['cta'])}</a><a class="ghost" href="#servicos">Ver serviços</a></div>
+<p class="lead">{e(seg_txt)} com atenção de verdade{em_cidade}. Fale com a equipe {art} {e(curto)} pelo {canal} e tire suas dúvidas em poucos minutos.</p>
+<div class="acoes"><a class="btn" href="{link}" {alvo}>{icon}{e(c['cta'])}</a><a class="ghost" href="#servicos">Ver {rot.lower()}</a></div>
 {f'<ul class="chips">{chips}</ul>' if chips else ''}</div>
 <div class="foto"><img src="{IMG.format(f1, 1100)}" alt="" loading="eager">
 <div class="selo"><b>{svg(STAR, 20)}</b>{e(selo)}</div></div>
 </div></header>
-<section id="servicos"><div class="wrap"><div class="cab"><small>Serviços</small><h2>O que oferecemos</h2><p>Atendimento pensado para você, do primeiro contato ao resultado.</p></div>
+<section id="servicos"><div class="wrap"><div class="cab"><small>{rot}</small><h2>{tit_serv}</h2><p>{sub_serv}</p></div>
 <div class="grid">{cards}</div></div></section>
 <section class="sobre" id="sobre"><div class="wrap"><img class="rev" src="{IMG.format(f2, 1000)}" alt="" loading="lazy">
 <div class="rev"><div class="cab" style="margin:0"><small>Sobre {art} {e(curto)}</small><h2>Cuidado de perto, do jeito que deve ser</h2><p>{e(c['sobre'])}</p></div><ul>{lista}</ul></div></div></section>
