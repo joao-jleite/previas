@@ -71,13 +71,17 @@ def pagina(lead: dict) -> str:
     servicos = [s for s in (lead.get("servicos") or []) if s][:6]
     difs = [d for d in (lead.get("diferenciais") or []) if d][:4]
     tel = so_digitos(lead.get("whatsapp_ou_telefone", ""))
-    wa = f"https://wa.me/{tel}?text=" + "Ol%C3%A1!%20Vim%20pelo%20site." if tel else ""
+    # Celular (55 + DDD + 9 dígitos) vira WhatsApp; fixo vira link de ligação
+    celular = len(tel) == 13
+    wa = (f"https://wa.me/{tel}?text=" + "Ol%C3%A1!%20Vim%20pelo%20site.") if celular else (f"tel:+{tel}" if tel else "")
+    canal = "WhatsApp" if celular else "telefone"
     ig = ig_url(lead.get("instagram", ""))
     end = lead.get("endereco") or ""
     mapa = "https://www.google.com/maps/search/?api=1&query=" + re.sub(r"\s+", "+", e(f"{nome} {end} {lead.get('cidade','')}")) if (end or lead.get("cidade")) else ""
-    btn = f'<a class="btn" href="{wa}" target="_blank" rel="noopener">{e(cta)} pelo WhatsApp</a>' if wa else (
+    btn = f'<a class="btn" href="{wa}" target="_blank" rel="noopener">{e(cta)} pelo {canal}</a>' if wa else (
         f'<a class="btn" href="mailto:{e(lead.get("email"))}">{e(cta)}</a>')
 
+    passo2 = cta
     cards = "".join(f'<div class="card"><span class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--c)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg></span><h3>{e(s)}</h3></div>' for s in servicos)
     lista_difs = "".join(f"<li>{e(d)}</li>" for d in difs)
     sec_difs = f'<section><h2>Por que escolher a {e(nome)}</h2><ul class="difs">{lista_difs}</ul></section>' if difs else ""
@@ -85,7 +89,7 @@ def pagina(lead: dict) -> str:
     if end:
         contato.append(f"<p><strong>Endereço:</strong> {e(end)}</p>")
     if tel:
-        contato.append(f'<p><strong>WhatsApp:</strong> <a href="{wa}">{e(lead.get("whatsapp_ou_telefone"))}</a></p>')
+        contato.append(f'<p><strong>{"WhatsApp" if celular else "Telefone"}:</strong> <a href="{wa}">{e(lead.get("whatsapp_ou_telefone"))}</a></p>')
     if ig:
         contato.append(f'<p><strong>Instagram:</strong> <a href="{e(ig)}" target="_blank" rel="noopener">{e(lead.get("instagram"))}</a></p>')
     if lead.get("email"):
@@ -124,10 +128,11 @@ footer{{text-align:center;padding:32px 20px;color:#6b7280;font-size:14px}}
 <main>
 <section><h2>Nossos serviços</h2><div class="grid">{cards}</div></section>
 {sec_difs}
+<section><h2>Como funciona</h2><div class="grid"><div class="card"><strong>1.</strong><h3>Fale pelo {canal}</h3><p>Tire suas dúvidas direto com a equipe.</p></div><div class="card"><strong>2.</strong><h3>{e(passo2)}</h3><p>Combine o melhor dia e horário.</p></div><div class="card"><strong>3.</strong><h3>Comece com a gente</h3><p>Tudo explicado antes de fechar.</p></div></div></section>
 <section><h2>Fale com a gente</h2><div class="contato">{"".join(contato)}</div></section>
 </main>
 <footer>{e(nome)} · {e(lead.get("cidade",""))}</footer>
-{f'<a class="wa" href="{wa}" target="_blank" rel="noopener">WhatsApp</a>' if wa else ""}
+{f'<a class="wa" href="{wa}" target="_blank" rel="noopener">{"WhatsApp" if celular else "Ligar"}</a>' if wa else ""}
 </body></html>"""
 
 
@@ -144,7 +149,7 @@ def main(arquivos):
             continue
         for lead in leads:
             # Sem nome, e-mail ou serviços não dá para fazer uma prévia honesta
-            if not lead.get("nome") or not lead.get("email") or len(lead.get("servicos") or []) < 2:
+            if not lead.get("nome") or not lead.get("email") or len(lead.get("servicos") or []) < 1:
                 print("pulado (dados insuficientes):", lead.get("nome"))
                 continue
             s = slug(lead["nome"])

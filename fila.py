@@ -4,6 +4,7 @@ Uso: python fila.py leads/aprovados.json
 Saída: fila.json (to, assunto, corpo, compose_url), pulando quem já está em envios.json.
 """
 import json
+import re
 import sys
 import urllib.parse
 from pathlib import Path
@@ -11,9 +12,9 @@ from pathlib import Path
 RAIZ = Path(__file__).parent
 CONTA = 2  # índice da conta joao.jleitewrk no Gmail do Brave (mail/u/2)
 
-CORPO = """Olá, equipe da {nome}!
+CORPO = """{saudacao}
 
-{gancho} Como não encontrei um site próprio de vocês, montei uma prévia de como ele poderia ficar, com os serviços que vocês divulgam e o botão direto para o WhatsApp:
+{gancho} {frase_site}
 
 {link}
 
@@ -45,8 +46,12 @@ def main(arq):
         # Só entra quem tem prévia publicada, gancho revisado e não recebeu nada ainda
         if not to or not link or to in enviados or not l.get("gancho"):
             continue
-        assunto = f"Fiz uma prévia do site da {l['nome']}"
-        corpo = CORPO.format(nome=l["nome"], gancho=l["gancho"].strip(), link=link)
+        nome = l.get("nome_email") or l["nome"]
+        # Artigo pelo primeiro termo do nome (Espaço/Studio/Centro... são masculinos)
+        art = "do" if nome.split()[0].lower() in ("espaço", "studio", "estúdio", "centro", "consultório", "instituto", "ateliê", "buffet", "colégio", "núcleo") else "da"
+        assunto = f"Fiz uma prévia do site {art} {nome}"
+        corpo = CORPO.format(saudacao=l.get("saudacao") or f"Olá, equipe {art} {nome}!", gancho=l["gancho"].strip(), link=link,
+                             frase_site=l.get("frase_site") or ("Como não encontrei um site próprio de vocês, montei uma prévia de como ele poderia ficar, com os serviços que vocês divulgam e o botão direto para o " + ("WhatsApp:" if len(re.sub(r"\D", "", l.get("whatsapp_ou_telefone") or "")) in (11, 13) else "contato:")))
         q = urllib.parse.urlencode({"view": "cm", "fs": "1", "to": to, "su": assunto, "body": corpo},
                                    quote_via=urllib.parse.quote)
         fila.append({"to": to, "nome": l["nome"], "assunto": assunto, "corpo": corpo,
