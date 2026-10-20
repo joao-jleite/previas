@@ -18,14 +18,23 @@ CORPO = """{saudacao}
 
 {link}
 
-É só um rascunho, sem compromisso. Se gostarem, eu ajusto com as fotos, os textos e as cores de vocês e publico em domínio próprio.
+Trata-se apenas de um rascunho, sem compromisso. Caso a ideia seja do interesse de vocês, adapto a página com as fotos, os textos e a identidade visual de vocês e a publico em domínio próprio.
 
-Sou João Leite, desenvolvedor de sites aqui da Grande São Paulo. Dois trabalhos meus no ar: dermatechbrasil.com.br e dandrademoda.com.br.
+Sou desenvolvedor de sites na Grande São Paulo. Entre os trabalhos que tenho publicados estão dermatechbrasil.com.br e dandrademoda.com.br.
 
-Se não fizer sentido agora, é só me responder que não envio mais nada.
+Caso não seja do interesse no momento, basta responder a este e-mail e não enviarei novas mensagens.
+
+Atenciosamente,
 
 João Leite
+Desenvolvimento de Sites
 joao.jleitewrk@gmail.com"""
+
+
+def periodo() -> str:
+    import datetime
+    h = datetime.datetime.now().hour
+    return "Bom dia" if h < 12 else ("Boa tarde" if h < 18 else "Boa noite")
 
 
 def carregar(p: Path, padrao):
@@ -50,8 +59,14 @@ def main(arq):
         # Artigo pelo primeiro termo do nome (Espaço/Studio/Centro... são masculinos)
         art = "do" if nome.split()[0].lower() in ("espaço", "studio", "estúdio", "centro", "consultório", "instituto", "ateliê", "buffet", "colégio", "núcleo") else "da"
         assunto = f"Fiz uma prévia do site {art} {nome}"
-        corpo = CORPO.format(saudacao=l.get("saudacao") or f"Olá, equipe {art} {nome}!", gancho=l["gancho"].strip(), link=link,
+        corpo = CORPO.format(saudacao=l.get("saudacao") or f"{periodo()}, equipe {art} {nome}.", gancho=l["gancho"].strip(), link=link,
                              frase_site=l.get("frase_site") or ("Como não encontrei um site próprio de vocês, montei uma prévia de como ele poderia ficar, com os serviços que vocês divulgam e o botão direto para o " + ("WhatsApp:" if len(re.sub(r"\D", "", l.get("whatsapp_ou_telefone") or "")) in (11, 13) else "contato:")))
+        if l.get("saudacao"):
+            # Profissional autônomo: trata por "você" no corpo inteiro
+            for a, b in (("site próprio de vocês", "site próprio"), ("serviços que vocês divulgam", "serviços que você divulga"),
+                         ("com o que vocês divulgam", "com o que você divulga"), ("do interesse de vocês", "do seu interesse"),
+                         ("com as fotos, os textos e a identidade visual de vocês", "com as suas fotos, os seus textos e a sua identidade visual")):
+                corpo = corpo.replace(a, b)
         q = urllib.parse.urlencode({"view": "cm", "fs": "1", "to": to, "su": assunto, "body": corpo},
                                    quote_via=urllib.parse.quote)
         fila.append({"to": to, "nome": l["nome"], "assunto": assunto, "corpo": corpo,
