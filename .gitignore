@@ -5,3 +5,8 @@ leads/
 *.md.priv
 fila.json
 EMAIL-MODELO.md
+PLAYBOOK.md
+leads/
+
+# canal Telegram da prospecção (chat_id e mensagens): nunca sobe
+telegram_*.json

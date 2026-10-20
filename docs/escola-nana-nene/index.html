@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escola Nana Nenê — Berçário e Educação Infantil em São Caetano do Sul</title>
+<meta name="description" content="Desde 1995 em São Caetano do Sul: berçário, maternal e educação infantil de 0 a 6 anos, com ensino bilíngue e horário das 6h30 às 19h30.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#1f3c88; --azul-esc:#142a63; --sol:#f7b733; --sol-claro:#fff3d1;
+    --coral:#ef6f5e; --verde:#3aa17e; --lilas:#8a6fd1;
+    --creme:#fffaf2; --texto:#2b2f3a; --suave:#5d6474; --linha:#efe6d6;
+    --raio:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:Nunito,system-ui,sans-serif;color:var(--texto);background:var(--creme);line-height:1.6;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:"Baloo 2",Nunito,sans-serif;line-height:1.1;color:var(--azul-esc)}
+  .wrap{width:min(1160px,100% - 32px);margin-inline:auto}
+  .tag{display:inline-block;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--coral);margin-bottom:10px}
+  .btn{display:inline-flex;align-items:center;gap:10px;font-weight:700;border-radius:999px;padding:14px 24px;transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-sol{background:var(--sol);color:var(--azul-esc);box-shadow:0 8px 20px -8px rgba(247,183,51,.9)}
+  .btn-borda{border:2px solid var(--azul);color:var(--azul)}
+  .wa{width:20px;height:20px;fill:currentColor;flex:none}
+
+  /* faixa superior */
+  .faixa{background:var(--azul-esc);color:#dfe6ff;font-size:.85rem}
+  .faixa .wrap{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;padding:8px 0}
+  .faixa b{color:var(--sol)}
+
+  /* topo */
+  header{position:sticky;top:0;z-index:20;background:rgba(255,250,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--linha)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+  .marca{display:flex;align-items:center;gap:10px}
+  .marca svg{width:42px;height:42px}
+  .marca strong{font-family:"Baloo 2";font-size:1.45rem;color:var(--azul-esc);line-height:1}
+  .marca small{display:block;font-size:.72rem;color:var(--suave);letter-spacing:.04em}
+  nav{display:flex;gap:26px;font-weight:700;color:var(--suave)}
+  nav a:hover{color:var(--azul)}
+  header .btn{padding:10px 18px;font-size:.92rem}
+
+  /* hero */
+  .hero{position:relative;padding:64px 0 90px;overflow:hidden}
+  .hero::before{content:"";position:absolute;width:560px;height:560px;border-radius:50%;background:var(--sol-claro);right:-140px;top:-120px;z-index:-1}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .selo{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--linha);border-radius:999px;padding:6px 14px;font-weight:700;font-size:.88rem;color:var(--azul)}
+  .selo i{width:8px;height:8px;border-radius:50%;background:var(--verde)}
+  .hero h1{font-size:clamp(2.4rem,5vw,3.9rem);margin:18px 0 18px}
+  .hero h1 em{font-style:normal;color:var(--coral)}
+  .hero p.lead{font-size:1.15rem;color:var(--suave);max-width:540px}
+  .acoes{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+  .foto-hero{position:relative}
+  .foto-hero img{border-radius:40px 40px 40px 120px;aspect-ratio:4/4.3;object-fit:cover;width:100%;box-shadow:0 30px 60px -30px rgba(20,42,99,.45)}
+  .bolha{position:absolute;background:#fff;border-radius:18px;padding:12px 16px;box-shadow:0 14px 30px -14px rgba(20,42,99,.35);font-weight:700;font-size:.92rem;display:flex;gap:10px;align-items:center}
+  .bolha span{font-family:"Baloo 2";font-size:1.5rem;line-height:1}
+  .b1{left:-28px;bottom:48px}.b1 span{color:var(--coral)}
+  .b2{right:-12px;top:36px}.b2 span{color:var(--verde)}
+
+  /* números */
+  .numeros{margin-top:-46px;position:relative;z-index:2}
+  .numeros .wrap{background:#fff;border-radius:var(--raio);display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 20px 40px -26px rgba(20,42,99,.35);border:1px solid var(--linha)}
+  .num{padding:26px 18px;text-align:center;border-right:1px solid var(--linha)}
+  .num:last-child{border:0}
+  .num strong{display:block;font-family:"Baloo 2";font-size:2rem;color:var(--azul)}
+  .num span{color:var(--suave);font-size:.92rem}
+
+  section{padding:96px 0}
+  .titulo{max-width:680px;margin-bottom:46px}
+  .titulo h2{font-size:clamp(2rem,3.6vw,2.8rem)}
+  .titulo p{color:var(--suave);margin-top:12px;font-size:1.06rem}
+  .centro{text-align:center;margin-inline:auto}
+
+  /* história */
+  .historia .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+  .historia img{border-radius:var(--raio);aspect-ratio:5/4;object-fit:cover;width:100%}
+  .historia p{color:var(--suave);margin-bottom:14px}
+  .missao{background:var(--sol-claro);border-radius:18px;padding:18px 20px;margin-top:20px;color:var(--azul-esc)}
+  .missao b{font-family:"Baloo 2";font-size:1.15rem;display:block}
+
+  /* etapas */
+  .etapas{background:#fff}
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .etapa{border-radius:var(--raio);overflow:hidden;background:var(--creme);border:1px solid var(--linha);display:flex;flex-direction:column}
+  .etapa img{aspect-ratio:16/10;object-fit:cover;width:100%}
+  .etapa .corpo{padding:24px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .idade{align-self:flex-start;font-weight:800;font-size:.82rem;border-radius:999px;padding:4px 12px;color:#fff}
+  .etapa h3{font-size:1.6rem}
+  .etapa ul{list-style:none;display:grid;gap:8px;color:var(--suave);font-size:.97rem}
+  .etapa li{padding-left:24px;position:relative}
+  .etapa li::before{content:"";position:absolute;left:4px;top:.55em;width:9px;height:9px;border-radius:50%;background:currentColor;opacity:.35}
+  .etapa .btn{margin-top:auto;align-self:flex-start;padding:10px 18px;font-size:.92rem}
+
+  /* diferenciais */
+  .grid-dif{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .dif{background:#fff;border-radius:var(--raio);padding:26px;border:1px solid var(--linha)}
+  .ico{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;margin-bottom:16px}
+  .ico svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .dif h3{font-size:1.3rem;margin-bottom:6px}
+  .dif p{color:var(--suave);font-size:.97rem}
+
+  /* depoimentos */
+  .depo{background:var(--azul-esc);color:#e8ecff}
+  .depo h2{color:#fff}
+  .depo .titulo p{color:#b9c4ea}
+  .cards2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  blockquote{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:var(--raio);padding:30px;font-size:1.05rem}
+  blockquote::before{content:"\201C";font-family:"Baloo 2";font-size:4rem;line-height:.6;color:var(--sol);display:block;margin-bottom:12px}
+  blockquote footer{margin-top:18px;font-weight:700;color:#fff}
+  blockquote footer small{display:block;font-weight:400;color:#b9c4ea}
+  .estrelas{color:var(--sol);letter-spacing:2px}
+
+  /* galeria */
+  .galeria{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:14px}
+  .galeria figure{border-radius:18px;overflow:hidden;position:relative}
+  .galeria img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+  .galeria figure:hover img{transform:scale(1.05)}
+  .galeria figcaption{position:absolute;left:10px;bottom:10px;background:rgba(255,255,255,.92);border-radius:999px;padding:4px 12px;font-weight:700;font-size:.82rem;color:var(--azul-esc)}
+  .g-alta{grid-row:span 2}
+  .g-larga{grid-column:span 2}
+  .nota{color:var(--suave);font-size:.85rem;margin-top:14px;text-align:center}
+
+  /* visita */
+  .visita .caixa{background:linear-gradient(135deg,var(--sol) 0%,#f9c95c 100%);border-radius:32px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+  .visita h2{font-size:clamp(1.9rem,3.4vw,2.6rem)}
+  .visita p{color:#4a3a10;margin-top:10px}
+  form{background:#fff;border-radius:var(--raio);padding:26px;display:grid;gap:14px}
+  label{font-weight:700;font-size:.9rem;color:var(--azul-esc)}
+  select,input{width:100%;margin-top:6px;font:inherit;padding:12px 14px;border-radius:12px;border:1.5px solid var(--linha);background:var(--creme)}
+  form .btn{justify-content:center;background:#25d366;color:#fff;border:0;cursor:pointer;font-size:1rem}
+
+  /* contato */
+  .contato .wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:stretch}
+  .info{display:grid;gap:16px;align-content:start}
+  .linha-info{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--linha);border-radius:18px;padding:16px 18px}
+  .linha-info svg{width:22px;height:22px;flex:none;stroke:var(--coral);fill:none;stroke-width:2;margin-top:2px}
+  .linha-info b{display:block;color:var(--azul-esc)}
+  .linha-info span{color:var(--suave);font-size:.95rem}
+  .mapa{border-radius:var(--raio);overflow:hidden;border:1px solid var(--linha);min-height:360px}
+  .mapa iframe{width:100%;height:100%;border:0;min-height:360px}
+
+  .rodape{background:var(--azul-esc);color:#b9c4ea;font-size:.88rem;padding:28px 0}
+  .rodape .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .zap{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.4);z-index:30}
+  .zap .wa{width:30px;height:30px;color:#fff}
+
+  @media (max-width:960px){
+    nav{display:none}
+    .hero .wrap,.historia .wrap,.visita .caixa,.contato .wrap{grid-template-columns:1fr}
+    .hero{padding:40px 0 80px}
+    .foto-hero{max-width:520px}
+    .b1{left:8px}.b2{right:8px}
+    .cards3,.grid-dif{grid-template-columns:1fr 1fr}
+    .numeros .wrap{grid-template-columns:1fr 1fr}
+    .num:nth-child(2){border-right:0}
+    .num:nth-child(-n+2){border-bottom:1px solid var(--linha)}
+    .galeria{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}
+  }
+  @media (max-width:620px){
+    .faixa .wrap{gap:4px 14px;font-size:.78rem}
+    .faixa .so-desk{display:none}
+    header .btn span{display:none}
+    header .btn{padding:10px 12px}
+    .cards3,.grid-dif,.cards2{grid-template-columns:1fr}
+    section{padding:72px 0}
+    .visita .caixa{padding:28px 20px;border-radius:26px}
+    .g-larga{grid-column:span 2}
+  }
+</style>
+</head>
+<body>
+
+<div class="faixa"><div class="wrap">
+  <span>Segunda a sexta, <b>das 6h30 às 19h30</b></span>
+  <span class="so-desk">Rua Oswaldo Cruz, 800 · Santa Paula · São Caetano do Sul</span>
+  <span><b>Matrículas abertas</b></span>
+</div></div>
+
+<header><div class="wrap">
+  <a class="marca" href="#inicio" aria-label="Escola Nana Nenê">
+    <!-- marca provisória: lua e estrela (o nome vem da cantiga de ninar); no site final entra o logo da escola -->
+    <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="#1f3c88"/><path d="M29 12a12 12 0 1 0 8 19 10 10 0 0 1-8-19z" fill="#f7b733"/><path d="M15 15l1.2 2.6 2.8.4-2 2 .5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-2 2.8-.4z" fill="#fff"/></svg>
+    <div><strong>Nana Nenê</strong><small>BERÇÁRIO E EDUCAÇÃO INFANTIL</small></div>
+  </a>
+  <nav><a href="#escola">A escola</a><a href="#etapas">Etapas</a><a href="#diferenciais">Diferenciais</a><a href="#galeria">Galeria</a><a href="#contato">Contato</a></nav>
+  <a class="btn btn-sol" href="https://wa.me/5511959625099?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20visita%20na%20Escola%20Nana%20Nen%C3%AA." target="_blank" rel="noopener">
+    <svg class="wa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+    <span>Agendar visita</span>
+  </a>
+</div></header>
+
+<main id="inicio">
+<section class="hero"><div class="wrap">
+  <div>
+    <span class="selo"><i></i> Desde 1995 em São Caetano do Sul</span>
+    <h1>Carinho de casa, <em>aprendizado</em> de escola.</h1>
+    <p class="lead">Berçário, maternal e educação infantil de 0 a 6 anos, com inglês no dia a dia e horário das 6h30 às 19h30, para a rotina de quem trabalha.</p>
+    <div class="acoes">
+      <a class="btn btn-sol" href="#visita">Planejar uma visita</a>
+      <a class="btn btn-borda" href="#etapas">Conhecer as etapas</a>
+    </div>
+  </div>
+  <div class="foto-hero">
+    <img src="https://images.unsplash.com/photo-1607453998774-d533f65dac99?w=1100&q=75&auto=format&fit=crop" alt="Crianças sorrindo abraçadas">
+    <div class="bolha b1"><span>30+</span> anos acolhendo<br>famílias</div>
+    <div class="bolha b2"><span>0–6</span> anos, do berçário<br>ao pré</div>
+  </div>
+</div></section>
+
+<div class="numeros"><div class="wrap">
+  <div class="num"><strong>1995</strong><span>fundada em São Caetano</span></div>
+  <div class="num"><strong>0 a 6</strong><span>anos atendidos</span></div>
+  <div class="num"><strong>Bilíngue</strong><span>com a Perto Educação</span></div>
+  <div class="num"><strong>13 h</strong><span>de portas abertas por dia</span></div>
+</div></div>
+
+<section class="historia" id="escola"><div class="wrap">
+  <img src="https://images.unsplash.com/photo-1544776193-352d25ca82cd?w=1000&q=75&auto=format&fit=crop" alt="Professora lendo com uma criança">
+  <div>
+    <span class="tag">Nossa história</span>
+    <h2 style="font-size:clamp(2rem,3.6vw,2.8rem);margin-bottom:18px">Mais de três décadas formando crianças felizes e confiantes</h2>
+    <p>A Nana Nenê nasceu em 1995 cuidando dos primeiros passos de crianças de 0 a 3 anos. Com a confiança das famílias de São Caetano do Sul, a escola cresceu e hoje acompanha cada criança até os 6 anos, pronta para o Ensino Fundamental.</p>
+    <p>Pensamos a escola para quem trabalha o dia todo: ambiente protegido, equipe dedicada, rotina rica e conversa aberta com a família em cada fase.</p>
+    <div class="missao"><b>Nossa missão</b>Respeitar a individualidade de cada criança, estimulando socialização, autonomia, organização, responsabilidade, autoconfiança e raciocínio lógico.</div>
+  </div>
+</div></section>
+
+<section class="etapas" id="etapas"><div class="wrap">
+  <div class="titulo centro">
+    <span class="tag">Etapas</span>
+    <h2>Um cuidado para cada fase</h2>
+    <p>Do colo aconchegante dos primeiros meses à prontidão para o Ensino Fundamental.</p>
+  </div>
+  <div class="cards3">
+    <article class="etapa">
+      <img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=800&q=75&auto=format&fit=crop" alt="Pezinhos de bebê em uma manta">
+      <div class="corpo">
+        <span class="idade" style="background:var(--coral)">0 a 2 anos</span>
+        <h3>Berçário</h3>
+        <ul style="color:var(--coral)"><li><span style="color:var(--suave)">Estímulo psicomotor e sensorial suave</span></li><li><span style="color:var(--suave)">Lactário exclusivo e higienizado</span></li><li><span style="color:var(--suave)">Rotina individual de sono e mamadas</span></li></ul>
+        <a class="btn btn-borda" href="https://wa.me/5511959625099?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20Ber%C3%A7%C3%A1rio%20da%20Nana%20Nen%C3%AA." target="_blank" rel="noopener">Saber mais</a>
+      </div>
+    </article>
+    <article class="etapa">
+      <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&q=75&auto=format&fit=crop" alt="Criança pequena brincando com câmera de brinquedo">
+      <div class="corpo">
+        <span class="idade" style="background:var(--verde)">2 a 3 anos</span>
+        <h3>Maternal</h3>
+        <ul style="color:var(--verde)"><li><span style="color:var(--suave)">Desenvolvimento da fala e socialização</span></li><li><span style="color:var(--suave)">Primeiro contato lúdico com o inglês</span></li><li><span style="color:var(--suave)">Desfralde gentil, no tempo de cada um</span></li></ul>
+        <a class="btn btn-borda" href="https://wa.me/5511959625099?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20Maternal%20da%20Nana%20Nen%C3%AA." target="_blank" rel="noopener">Saber mais</a>
+      </div>
+    </article>
+    <article class="etapa">
+      <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&q=75&auto=format&fit=crop" alt="Mesa com tintas e desenhos de criança">
+      <div class="corpo">
+        <span class="idade" style="background:var(--lilas)">4 a 6 anos</span>
+        <h3>Educação Infantil</h3>
+        <ul style="color:var(--lilas)"><li><span style="color:var(--suave)">Método fônico e letramento com ludicidade</span></li><li><span style="color:var(--suave)">Material do Sistema Anglo</span></li><li><span style="color:var(--suave)">Balé, capoeira e mostras culturais</span></li></ul>
+        <a class="btn btn-borda" href="https://wa.me/5511959625099?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Educa%C3%A7%C3%A3o%20Infantil%20da%20Nana%20Nen%C3%AA." target="_blank" rel="noopener">Saber mais</a>
+      </div>
+    </article>
+  </div>
+</div></section>
+
+<section id="diferenciais"><div class="wrap">
+  <div class="titulo">
+    <span class="tag">Diferenciais</span>
+    <h2>Seu filho aprende brincando. Você trabalha tranquilo.</h2>
+  </div>
+  <div class="grid-dif">
+    <div class="dif"><div class="ico" style="background:var(--azul)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div><h3>Ensino bilíngue</h3><p>Com a Perto Educação, o inglês entra na rotina por histórias, canções e comandos do dia a dia.</p></div>
+    <div class="dif"><div class="ico" style="background:var(--coral)"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2zm0 0a2 2 0 0 0 2 2h12"/></svg></div><h3>Sistema Anglo</h3><p>Material didático reconhecido no Brasil, que estimula curiosidade, raciocínio lógico e organização.</p></div>
+    <div class="dif"><div class="ico" style="background:var(--sol)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Das 6h30 às 19h30</h3><p>Flexibilidade real para quem trabalha em período integral ou enfrenta trânsito.</p></div>
+    <div class="dif"><div class="ico" style="background:var(--verde)"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg></div><h3>Projeto Emoções</h3><p>Inteligência socioemocional e empatia, junto com o método fônico para a leitura.</p></div>
+    <div class="dif"><div class="ico" style="background:var(--lilas)"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><h3>Balé e capoeira</h3><p>Aulas extras na própria escola, trabalhando ritmo, equilíbrio, respeito e cultura.</p></div>
+    <div class="dif"><div class="ico" style="background:var(--azul-esc)"><svg viewBox="0 0 24 24"><path d="M3 20h18M5 20V9l7-5 7 5v11M10 20v-6h4v6"/></svg></div><h3>Saídas pedagógicas</h3><p>Passeios como o Sítio do Picapau Amarelo, mostras culturais com as famílias e formatura.</p></div>
+  </div>
+</div></section>
+
+<section class="depo"><div class="wrap">
+  <div class="titulo centro">
+    <span class="tag" style="color:var(--sol)">Famílias Nana Nenê</span>
+    <h2>Quem viveu, recomenda</h2>
+    <p>Irmãos, primos e gerações de São Caetano do Sul passaram por aqui.</p>
+  </div>
+  <div class="cards2">
+    <blockquote>Como coloquei minhas filhas ainda bebês na escola, procurava um lugar que fosse a extensão da minha casa. E o Nana foi esse lugar.
+      <footer><span class="estrelas">★★★★★</span><br>Patrícia<small>Mãe da Luiza e da Letícia</small></footer></blockquote>
+    <blockquote>Minha maior completou a educação infantil no Nana Nenê e ingressou no fundamental sem nenhuma dificuldade. Foram quase 10 anos acompanhando a escola.
+      <footer><span class="estrelas">★★★★★</span><br>Sandra<small>Mãe da Larissa e da Laura</small></footer></blockquote>
+  </div>
+</div></section>
+
+<section id="galeria"><div class="wrap">
+  <div class="titulo centro">
+    <span class="tag">Galeria</span>
+    <h2>Um pouco do nosso dia a dia</h2>
+  </div>
+  <div class="galeria">
+    <figure class="g-alta"><img src="https://images.unsplash.com/photo-1597413545419-4013431dbfec?w=700&q=75&auto=format&fit=crop" alt="Duas meninas sorrindo" loading="lazy"><figcaption>Amizades</figcaption></figure>
+    <figure class="g-larga"><img src="https://images.unsplash.com/photo-1588075592446-265fd1e6e76f?w=1000&q=75&auto=format&fit=crop" alt="Crianças sentadas em roda na sala" loading="lazy"><figcaption>Roda de conversa</figcaption></figure>
+    <figure><img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=600&q=75&auto=format&fit=crop" alt="Brinquedos coloridos organizados" loading="lazy"><figcaption>Brinquedoteca</figcaption></figure>
+    <figure><img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&q=75&auto=format&fit=crop" alt="Peças de montar coloridas" loading="lazy"><figcaption>Montar e criar</figcaption></figure>
+    <figure class="g-larga"><img src="https://images.unsplash.com/photo-1594608661623-aa0bd3a69d98?w=1000&q=75&auto=format&fit=crop" alt="Crianças de mochila caminhando juntas" loading="lazy"><figcaption>Saídas pedagógicas</figcaption></figure>
+  </div>
+  <p class="nota">Fotos ilustrativas. No site final, entram as fotos da escola.</p>
+</div></section>
+
+<section class="visita" id="visita"><div class="wrap">
+  <div class="caixa">
+    <div>
+      <span class="tag" style="color:var(--azul-esc)">Visite a escola</span>
+      <h2>Venha conhecer a Nana Nenê pessoalmente</h2>
+      <p>Escolha a idade e o período, e a conversa já começa no WhatsApp da coordenação.</p>
+    </div>
+    <form id="form-visita">
+      <label>Nome do responsável<input id="v-nome" placeholder="Seu nome" autocomplete="name"></label>
+      <label>Idade da criança
+        <select id="v-idade"><option>0 a 1 ano (Berçário)</option><option>1 a 2 anos (Berçário)</option><option>2 a 3 anos (Maternal)</option><option>4 a 6 anos (Educação Infantil)</option></select></label>
+      <label>Período
+        <select id="v-periodo"><option>Integral (6h30 às 19h30)</option><option>Manhã</option><option>Tarde</option><option>Ainda não sei</option></select></label>
+      <button class="btn" type="submit"><svg class="wa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>Agendar pelo WhatsApp</button>
+    </form>
+  </div>
+</div></section>
+
+<section class="contato" id="contato"><div class="wrap">
+  <div class="info">
+    <div class="titulo" style="margin-bottom:10px"><span class="tag">Contato</span><h2>Estamos em Santa Paula</h2></div>
+    <div class="linha-info"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b>Endereço</b><span>Rua Oswaldo Cruz, 800, Santa Paula, São Caetano do Sul/SP, CEP 09541-270</span></div></div>
+    <div class="linha-info"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><div><b>Telefones</b><span>(11) 4224-2077 · (11) 2376-0199<br>WhatsApp (11) 95962-5099</span></div></div>
+    <div class="linha-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Horário</b><span>Segunda a sexta, das 6h30 às 19h30</span></div></div>
+    <div class="linha-info"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg><div><b>Instagram</b><span><a href="https://instagram.com/escolanananeneoficial" target="_blank" rel="noopener">@escolanananeneoficial</a> · secretaria@escolanananene.com.br</span></div></div>
+  </div>
+  <div class="mapa"><iframe loading="lazy" title="Mapa da Escola Nana Nenê" src="https://www.google.com/maps?q=Rua+Oswaldo+Cruz,+800+-+Santa+Paula,+S%C3%A3o+Caetano+do+Sul+-+SP&output=embed"></iframe></div>
+</div></section>
+</main>
+
+<div class="rodape"><div class="wrap">
+  <span>© Escola Nana Nenê · Berçário e Educação Infantil · São Caetano do Sul</span>
+  <span>Prévia de site criada por João Leite para a Escola Nana Nenê. Não é o site oficial.</span>
+</div></div>
+
+<a class="zap" href="https://wa.me/5511959625099?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20a%20Escola%20Nana%20Nen%C3%AA." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg class="wa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+</a>
+
+<script>
+  // monta a mensagem do WhatsApp com o que o responsável escolheu
+  document.getElementById('form-visita').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nome = document.getElementById('v-nome').value.trim();
+    var msg = 'Olá! ' + (nome ? 'Sou ' + nome + '. ' : '') +
+      'Gostaria de agendar uma visita na Escola Nana Nenê. Idade da criança: ' +
+      document.getElementById('v-idade').value + '. Período: ' + document.getElementById('v-periodo').value + '.';
+    window.open('https://wa.me/5511959625099?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+  });
+</script>
+</body>
+</html>
