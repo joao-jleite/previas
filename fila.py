@@ -27,8 +27,9 @@ Caso não seja do interesse no momento, basta responder a este e-mail e não env
 Atenciosamente,
 
 João Leite
-Desenvolvimento de Sites
-joao.jleitewrk@gmail.com"""
+Desenvolvimento de Sites | Grande São Paulo
+WhatsApp: (11) 96155-1602
+E-mail: joao.jleitewrk@gmail.com"""
 
 
 def periodo() -> str:
@@ -57,9 +58,9 @@ def main(arq):
             continue
         nome = l.get("nome_email") or l["nome"]
         # Artigo pelo primeiro termo do nome (Espaço/Studio/Centro... são masculinos)
-        art = "do" if nome.split()[0].lower() in ("espaço", "studio", "estúdio", "centro", "consultório", "instituto", "ateliê", "buffet", "colégio", "núcleo") else "da"
+        art = l_art if (l_art := l.get("artigo")) in ("do", "da") else "do" if nome.split()[0].lower() in ("espaço", "studio", "estúdio", "centro", "consultório", "instituto", "ateliê", "buffet", "colégio", "núcleo") else "da"
         assunto = f"Fiz uma prévia do site {art} {nome}"
-        corpo = CORPO.format(saudacao=l.get("saudacao") or f"{periodo()}, equipe {art} {nome}.", gancho=l["gancho"].strip(), link=link,
+        corpo = CORPO.format(saudacao=l.get("saudacao") or f"Olá, equipe {art} {nome}.", gancho=l["gancho"].strip(), link=link,
                              frase_site=l.get("frase_site") or ("Como não encontrei um site próprio de vocês, montei uma prévia de como ele poderia ficar, com os serviços que vocês divulgam e o botão direto para o " + ("WhatsApp:" if len(re.sub(r"\D", "", l.get("whatsapp_ou_telefone") or "")) in (11, 13) else "contato:")))
         if l.get("saudacao"):
             # Profissional autônomo: trata por "você" no corpo inteiro
