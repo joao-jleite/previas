@@ -41,6 +41,21 @@ SEGMENTOS = [
         cta="Agendar avaliação", passos=["Fale com a clínica", "Avaliação", "Plano de tratamento"],
         desc=["Avaliação e plano claro.", "Conforto em cada etapa.", "Tecnologia a favor do seu sorriso.", "Acompanhamento após o tratamento."],
         icone="M7 3C5 3 3 5 3 8c0 4 2 5 2 9 0 2 1 4 2 4 2 0 1-6 5-6s3 6 5 6c1 0 2-2 2-4 0-4 2-5 2-9 0-3-2-5-4-5-2 0-3 1-5 1S9 3 7 3z")),
+    ("fono", r"fono|psicoped|aprendiza", dict(
+        cor="#c2410c", escura="#7c2d12", suave="#fff7ed", fotos=["1589206946274-929e4da3996b", "1583468991267-3f068b607ae1"],
+        titulo="Cada conquista na comunicação faz diferença.",
+        sobre="Avaliação cuidadosa, terapia individual e orientação para a família, com objetivos claros e acompanhamento de cada evolução.",
+        cta="Agendar avaliação", passos=["Fale comigo", "Avaliação", "Plano terapêutico"],
+        desc=["Avaliação completa e objetivos claros.", "Terapia individual e lúdica.", "Orientação para a família.", "Evolução acompanhada de perto."],
+        icone="M4 5h16v10H8l-4 4zM8 9h8M8 12h5")),
+    # Terapias integrativas antes de "psico" (senão "terapeuta integrativa" cai no visual de psicologia)
+    ("terapias", r"acupunt|shiatsu|massote|massag|reiki|holíst|holist|integrativ|reflexolog|auriculo", dict(
+        cor="#9a3412", escura="#431407", suave="#fdf8f3", fotos=["1519823551278-64ac92734fb1", "1598555763574-dca77e10427e"],
+        titulo="Equilíbrio para o corpo e tranquilidade para a mente.",
+        sobre="Cada sessão começa ouvindo você: o que incomoda, a sua rotina e o seu objetivo. A partir daí, as técnicas são combinadas para trazer alívio e bem-estar com segurança.",
+        cta="Agendar sessão", passos=["Mande uma mensagem", "Conversa inicial", "Sessões no seu ritmo"],
+        desc=["Atendimento individual e com hora marcada.", "Técnicas escolhidas para o seu caso.", "Ambiente calmo e acolhedor.", "Acompanhamento sessão a sessão."],
+        icone="M12 2c3 4 3 8 0 12-3-4-3-8 0-12zM4 10c4 0 7 2 8 6-4 0-7-2-8-6zm16 0c-4 0-7 2-8 6 4 0 7-2 8-6zM6 20h12")),
     ("psico", r"psic|terapeut", dict(
         cor="#6d28d9", escura="#4c1d95", suave="#f5f3ff", fotos=["1595846723416-99a641e1231a", "1673892990360-2168cc2c25d6"],
         titulo="Um espaço seguro para cuidar de você.",
@@ -55,7 +70,7 @@ SEGMENTOS = [
         cta="Agendar consulta", passos=["Fale comigo", "Consulta e avaliação", "Plano e acompanhamento"],
         desc=["Plano alimentar individual.", "Metas realistas e acompanhamento.", "Orientação prática para o dia a dia.", "Retornos para ajustar o plano."],
         icone="M17 8C8 10 6 16 4 21l2 1 1-2.5c1 .5 2 .5 3 .5 9 0 11-14 11-14-1 2-8 2-13 6 3-3 7-4 9-5z")),
-    ("podologia", r"podolog", dict(
+    ("podologia", r"podolog|podólog", dict(
         cor="#0e7490", escura="#164e63", suave="#ecfeff", fotos=["1675159364615-38e1f6b62282", "1611073615830-9f76902c10fe"],
         titulo="Cuidado especializado para os seus pés.",
         sobre="Atendimento com higiene rigorosa, materiais esterilizados e orientação para você caminhar com conforto todos os dias.",
@@ -81,8 +96,16 @@ SEGMENTOS = [
         titulo="Cuidado de verdade para quem é da família.",
         sobre="Atendimento carinhoso, profissionais que amam animais e um ambiente tranquilo para o seu pet se sentir em casa.",
         cta="Agendar atendimento", passos=["Chame no WhatsApp", "Agende o horário", "Traga seu pet"],
-        desc=["Atendimento carinhoso.", "Profissionais dedicados.", "Ambiente limpo e tranquilo.", "Agendamento fácil."],
+        desc=["Cuidado e paciência com cada pet.", "Profissionais dedicados.", "Ambiente limpo e tranquilo.", "Agendamento fácil."],
         icone="M5 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm14 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM9 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-3 4c-4 0-7 6-7 8s2 3 4 3 2-1 3-1 1 1 3 1 4-1 4-3-3-8-7-8z")),
+    # Autoescola antes de "escola" (senão cai no visual de educação infantil)
+    ("autoescola", r"auto ?escola|cfc|habilita", dict(
+        cor="#1d4ed8", escura="#1e3a8a", suave="#eff6ff", fotos=["1678899091039-9950e7f248b5", "1524645343120-a4ae9f7d4343"],
+        titulo="Sua habilitação com segurança e no seu ritmo.",
+        sobre="Aulas teóricas e práticas com instrutores pacientes, acompanhamento em cada etapa do processo e preparação de verdade para o exame.",
+        cta="Fale com a autoescola", passos=["Fale com a gente", "Matrícula e aulas", "Exame e habilitação"],
+        desc=["Acompanhamento em cada etapa.", "Preparação para o exame.", "Instrutores pacientes e dedicados.", "Horários que cabem na sua rotina."],
+        icone="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11v6h-2v2h-2v-2H9v2H7v-2H5zm2.5 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm9 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM7 11h10l-1-3.5H8z")),
     ("escola", r"escola|berç|berc|infantil|educa|creche|recrea|idioma|inglês|ingles|reforço|reforco|música|musica|dança|danca|curso", dict(
         cor="#c2410c", escura="#7c2d12", suave="#fff7ed", fotos=["1594608661623-aa0bd3a69d98", "1503676260728-1c00da094a0b"],
         titulo="Um lugar para crescer, brincar e aprender.",
@@ -116,6 +139,10 @@ PADRAO = next(cfg for k, _, cfg in SEGMENTOS if k == "estetica")  # estética co
 
 
 def segmento(lead: dict) -> dict:
+    if lead.get("visual"):
+        for k, _, cfg in SEGMENTOS:
+            if k == lead["visual"]:
+                return cfg
     texto = f"{lead.get('segmento', '')} {lead.get('nome', '')}".lower()
     for _, padrao, cfg in SEGMENTOS:
         if re.search(padrao, texto):
@@ -222,6 +249,8 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--mut);font-siz
 
 def pagina(lead: dict) -> str:
     c = segmento(lead)
+    # Textos do segmento podem ser trocados por lead (público diferente do padrão do segmento)
+    c = dict(c, **{k: lead[k] for k in ("desc", "sobre", "passos") if lead.get(k)})
     nome = lead["nome"]
     curto = lead.get("nome_email") or nome  # nome curto para títulos ("Clínica Ceccato")
     cidade = lead.get("cidade") or ""
@@ -247,12 +276,15 @@ def pagina(lead: dict) -> str:
     q = re.sub(r"\s+", "+", f"{curto} {end} {cidade}".strip())
     mapa = f"https://maps.google.com/maps?q={e(q)}&output=embed" if (end or cidade) else ""
     inicial = re.sub(r"[^A-Za-zÀ-ÿ]", "", curto)[:1].upper() or "•"
-    f1, f2 = c["fotos"][0], c["fotos"][1]
+    f1, f2 = (lead.get("fotos") or c["fotos"])[:2]
     var = f"--c:{c['cor']};--d:{c['escura']};--s:{c['suave']}"
     # Artigo do nome: "da Clínica", "do Espaço"
-    art = "do" if curto.split()[0].lower() in ("espaço", "studio", "estúdio", "centro", "consultório", "instituto", "ateliê", "buffet", "colégio", "núcleo") else "da"
+    art = l_art if (l_art := lead.get("artigo")) in ("do", "da") else "do" if curto.split()[0].lower() in ("espaço", "studio", "estúdio", "centro", "consultório", "instituto", "ateliê", "buffet", "colégio", "núcleo") else "da"
 
-    chips = "".join(f"<li>{CHECK}{e(d)}</li>" for d in difs[:3])
+    # Selo da foto: prefere nota/tempo de casa; senão, a cidade. O selo não se repete nos chips.
+    forte = [d for d in difs if re.search(r"nota|avalia|anos|desde|★", d, re.I)]
+    selo = forte[0] if forte else (f"Atendimento em {cidade}" if cidade else seg_txt)
+    chips = "".join(f"<li>{CHECK}{e(d)}</li>" for d in [d for d in difs if d != selo][:3])
     cards = "".join(
         f'<article class="card rev"><span class="ic">{svg(c["icone"], 26)}</span>'
         f'<h3>{e(s)}</h3><p>{e(c["desc"][i % len(c["desc"])])}</p></article>'
@@ -273,14 +305,23 @@ def pagina(lead: dict) -> str:
     if lead.get("email"):
         contato.append(f'<dt>E-mail</dt><dd><a href="mailto:{e(lead["email"])}">{e(lead["email"])}</a></dd>')
     flutuante = f'<a class="flt" href="{link}" {alvo} aria-label="Fale pelo {canal}">{icon}</a>' if tel else ""
-    # Selo da foto: prefere nota/tempo de casa; senão, a cidade. Não repete o que já está nos chips.
-    forte = [d for d in difs if re.search(r"nota|avalia|anos|desde|★", d, re.I)]
-    selo = forte[0] if forte else (f"Atendimento em {cidade}" if cidade else seg_txt)
     escola = c is next(cfg for k, _, cfg in SEGMENTOS if k == "escola")
     rot = "Turmas" if escola else "Serviços"
     tit_serv = "Uma proposta para cada fase" if escola else "O que oferecemos"
     sub_serv = "Do primeiro dia à rotina, tudo pensado para o desenvolvimento das crianças." if escola else "Atendimento pensado para você, do primeiro contato ao resultado."
     em_cidade = f" em {e(cidade)}" if cidade else ""
+    # Profissional autônomo (lead com "saudacao"): página fala em 1ª pessoa, sem "equipe"/"oferecemos"
+    solo = bool(lead.get("saudacao"))
+    if solo:
+        tit_serv, sub_serv = "Como posso te ajudar", "Atendimento individual, do primeiro contato ao resultado."
+        fale = f"Fale comigo pelo {canal}"
+        tit_contato = "Fale comigo"
+        passos_lista = ["Fale comigo"] + c["passos"][1:]
+    else:
+        fale = f"Fale com a equipe {art} {e(curto)} pelo {canal}"
+        tit_contato = "Fale com a gente"
+        passos_lista = c["passos"]
+    passos = "".join(f'<div class="passo rev"><span>{i + 1}</span><h3>{e(p)}</h3></div>' for i, p in enumerate(passos_lista))
 
     return f"""<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8">
@@ -297,8 +338,8 @@ def pagina(lead: dict) -> str:
 <a class="btn sm" href="{link}" {alvo}>{e(c['cta'])}</a></div></nav>
 <header class="hero" id="inicio"><div class="wrap">
 <div><span class="tag">{e(seg_txt)}{(" · " + e(local)) if local else ""}</span>
-<h1>{e(c['titulo'])}</h1>
-<p class="lead">{e(seg_txt)} com atenção de verdade{em_cidade}. Fale com a equipe {art} {e(curto)} pelo {canal} e tire suas dúvidas em poucos minutos.</p>
+<h1>{e(lead.get('titulo') or c['titulo'])}</h1>
+<p class="lead">{e(seg_txt)} com atenção de verdade{em_cidade}. {fale} e tire suas dúvidas em poucos minutos.</p>
 <div class="acoes"><a class="btn" href="{link}" {alvo}>{icon}{e(c['cta'])}</a><a class="ghost" href="#servicos">Ver {rot.lower()}</a></div>
 {f'<ul class="chips">{chips}</ul>' if chips else ''}</div>
 <div class="foto"><img src="{IMG.format(f1, 1100)}" alt="" loading="eager">
@@ -310,7 +351,7 @@ def pagina(lead: dict) -> str:
 <div class="rev"><div class="cab" style="margin:0"><small>Sobre {"o" if art == "do" else "a"} {e(curto)}</small><h2>Cuidado de perto, do jeito que deve ser</h2><p>{e(c['sobre'])}</p></div>{f'<ul>{lista}</ul>' if lista else ''}</div></div></section>
 <section id="como"><div class="wrap"><div class="cab"><small>Como funciona</small><h2>Simples do começo ao fim</h2></div><div class="passos">{passos}</div></div></section>
 <div class="faixa"><div class="wrap"><div class="box rev"><div><h2>{e(c['cta'])} hoje mesmo</h2><p>Resposta rápida pelo {canal}.</p></div><a class="btn lt" href="{link}" {alvo}>{icon}{e(c['cta'])}</a></div></div></div>
-<section class="contato" id="contato" style="padding-top:0"><div class="wrap"><div><div class="cab"><small>Contato</small><h2>Fale com a gente</h2></div><dl>{"".join(contato)}</dl></div>
+<section class="contato" id="contato" style="padding-top:0"><div class="wrap"><div><div class="cab"><small>Contato</small><h2>{tit_contato}</h2></div><dl>{"".join(contato)}</dl></div>
 {f'<div class="mapa"><iframe src="{mapa}" loading="lazy" title="Mapa"></iframe></div>' if mapa else ''}</div></section>
 <footer><div class="wrap"><span>© 2026 {e(curto)}{(" · " + e(cidade)) if cidade else ""}</span><span>Prévia por João Leite</span></div></footer>
 {flutuante}
