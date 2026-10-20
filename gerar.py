@@ -27,7 +27,7 @@ SEGMENTOS = [
         cta="Agendar avaliação", passos=["Fale com a equipe", "Avaliação inicial", "Plano de tratamento"],
         desc=["Avaliação completa e plano individual.", "Atendimento próximo, sessão a sessão.", "Foco na sua recuperação e autonomia.", "Técnicas atualizadas e cuidado humano."],
         icone="M13 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM9 8h4l3 5-2 1-2-3v4l2 7h-2l-2-6-2 6H6l2-7z")),
-    ("pilates", r"pilates|yoga|funcional|studio|academia|treino", dict(
+    ("pilates", r"pilates|yoga|funcional|academia|treino", dict(
         cor="#4d7c0f", escura="#365314", suave="#f7fee7", fotos=["1717500252297-b09508db7ceb", "1552196527-bffef41ef674"],
         titulo="Movimento, força e equilíbrio para o seu dia a dia.",
         sobre="Aulas com atenção individual, turmas reduzidas e acompanhamento da sua evolução, para você treinar com segurança e prazer.",
@@ -76,6 +76,13 @@ SEGMENTOS = [
         cta="Agendar horário", passos=["Chame no WhatsApp", "Escolha o horário", "Venha se cuidar"],
         desc=["Atendimento com hora marcada.", "Profissionais atentos.", "Produtos de qualidade.", "Ambiente confortável."],
         icone=STAR)),
+    ("pet", r"\bpets?\b|veterin|animal|tosa", dict(
+        cor="#0d9488", escura="#115e59", suave="#f0fdfa", fotos=["1632236542159-809925d85fc0", "1654895716780-b4664497420d"],
+        titulo="Cuidado de verdade para quem é da família.",
+        sobre="Atendimento carinhoso, profissionais que amam animais e um ambiente tranquilo para o seu pet se sentir em casa.",
+        cta="Agendar atendimento", passos=["Chame no WhatsApp", "Agende o horário", "Traga seu pet"],
+        desc=["Atendimento carinhoso.", "Profissionais dedicados.", "Ambiente limpo e tranquilo.", "Agendamento fácil."],
+        icone="M5 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm14 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM9 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-3 4c-4 0-7 6-7 8s2 3 4 3 2-1 3-1 1 1 3 1 4-1 4-3-3-8-7-8z")),
     ("escola", r"escola|berç|berc|infantil|educa|creche|recrea|idioma|inglês|ingles|reforço|reforco|música|musica|dança|danca|curso", dict(
         cor="#c2410c", escura="#7c2d12", suave="#fff7ed", fotos=["1594608661623-aa0bd3a69d98", "1503676260728-1c00da094a0b"],
         titulo="Um lugar para crescer, brincar e aprender.",
@@ -83,13 +90,6 @@ SEGMENTOS = [
         cta="Agendar uma visita", passos=["Fale com a escola", "Visite o espaço", "Garanta a vaga"],
         desc=["Rotina pensada para cada idade.", "Equipe próxima das famílias.", "Ambiente seguro e acolhedor.", "Aprender brincando."],
         icone="M12 3 1 9l11 6 9-4.9V17h2V9zM5 13v4c0 2 3 4 7 4s7-2 7-4v-4l-7 4z")),
-    ("pet", r"pet|veterin|animal|tosa", dict(
-        cor="#0d9488", escura="#115e59", suave="#f0fdfa", fotos=["1632236542159-809925d85fc0", "1654895716780-b4664497420d"],
-        titulo="Cuidado de verdade para quem é da família.",
-        sobre="Atendimento carinhoso, profissionais que amam animais e um ambiente tranquilo para o seu pet se sentir em casa.",
-        cta="Agendar atendimento", passos=["Chame no WhatsApp", "Agende o horário", "Traga seu pet"],
-        desc=["Atendimento carinhoso.", "Profissionais dedicados.", "Ambiente limpo e tranquilo.", "Agendamento fácil."],
-        icone="M5 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm14 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM9 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm-3 4c-4 0-7 6-7 8s2 3 4 3 2-1 3-1 1 1 3 1 4-1 4-3-3-8-7-8z")),
     ("buffet", r"buffet|evento|festa|decora", dict(
         cor="#db2777", escura="#831843", suave="#fdf2f8", fotos=["1530103862676-de8c9debad1d", "1531956531700-dc0ee0f1f9a5"],
         titulo="A festa que você imaginou, do jeito que você sonhou.",
@@ -112,7 +112,7 @@ SEGMENTOS = [
         desc=["Orçamento claro antes do serviço.", "Equipe experiente.", "Peças e produtos de qualidade.", "Atendimento ágil."],
         icone="M5 11l2-5h10l2 5h1v6h-2v2h-2v-2H8v2H6v-2H4v-6zm2.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm9 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z")),
 ]
-PADRAO = SEGMENTOS[6][2]  # estética como visual neutro de serviço
+PADRAO = next(cfg for k, _, cfg in SEGMENTOS if k == "estetica")  # estética como visual neutro de serviço
 
 
 def segmento(lead: dict) -> dict:
@@ -226,10 +226,12 @@ def pagina(lead: dict) -> str:
     curto = lead.get("nome_email") or nome  # nome curto para títulos ("Clínica Ceccato")
     cidade = lead.get("cidade") or ""
     local = ", ".join(x for x in [lead.get("bairro"), cidade] if x)
-    seg_txt = frase(lead.get("segmento") or "")
+    # "fisioterapia / estética" -> "Fisioterapia e estética" (barra e parênteses ficam feios no selo)
+    seg_txt = frase(re.sub(r"\s*/\s*", " e ", re.sub(r"\s*\(.*?\)", "", lead.get("segmento") or "")))
     servicos = [frase(s) for s in (lead.get("servicos") or []) if s][:6]
     # Métrica de rede social (seguidores, check-ins) não é argumento de site: fica de fora
-    difs = [frase(d) for d in (lead.get("diferenciais") or []) if d and not re.search(r"seguidor|check-in|curtida|follower", d, re.I)][:4]
+    # Aspas de citação da bio e parênteses explicativos não ficam bem no selo
+    difs = [frase(re.sub(r"\s*\([^)]*\)", "", d).replace("'", "").replace('"', "")) for d in (lead.get("diferenciais") or []) if d and not re.search(r"seguidor|check-in|curtida|follower|cnpj|\bposts?\b|desconto|\bcita\b|evento de anivers", d, re.I)][:4]
     tel = so_digitos(lead.get("whatsapp_ou_telefone", ""))
     celular = len(tel) == 13  # 55 + DDD + 9 dígitos = celular/WhatsApp
     if celular:
@@ -256,7 +258,9 @@ def pagina(lead: dict) -> str:
         f'<h3>{e(s)}</h3><p>{e(c["desc"][i % len(c["desc"])])}</p></article>'
         for i, s in enumerate(servicos))
     # Completa a lista do "Sobre" com os pontos do segmento quando há poucos diferenciais
-    itens = (difs[1:] if len(difs) > 1 else []) + [d for d in c["desc"] if d not in difs]
+    # Não repete frase que já apareceu nos cards de serviço
+    usados = {c["desc"][i % len(c["desc"])] for i in range(len(servicos))}
+    itens = (difs[1:] if len(difs) > 1 else []) + [d for d in c["desc"] if d not in difs and d not in usados]
     lista = "".join(f"<li>{e(d)}</li>" for d in itens[:3])
     passos = "".join(f'<div class="passo rev"><span>{i + 1}</span><h3>{e(p)}</h3></div>' for i, p in enumerate(c["passos"]))
     contato = []
@@ -272,7 +276,7 @@ def pagina(lead: dict) -> str:
     # Selo da foto: prefere nota/tempo de casa; senão, a cidade. Não repete o que já está nos chips.
     forte = [d for d in difs if re.search(r"nota|avalia|anos|desde|★", d, re.I)]
     selo = forte[0] if forte else (f"Atendimento em {cidade}" if cidade else seg_txt)
-    escola = c is SEGMENTOS[8][2]
+    escola = c is next(cfg for k, _, cfg in SEGMENTOS if k == "escola")
     rot = "Turmas" if escola else "Serviços"
     tit_serv = "Uma proposta para cada fase" if escola else "O que oferecemos"
     sub_serv = "Do primeiro dia à rotina, tudo pensado para o desenvolvimento das crianças." if escola else "Atendimento pensado para você, do primeiro contato ao resultado."
@@ -303,7 +307,7 @@ def pagina(lead: dict) -> str:
 <section id="servicos"><div class="wrap"><div class="cab"><small>{rot}</small><h2>{tit_serv}</h2><p>{sub_serv}</p></div>
 <div class="grid">{cards}</div></div></section>
 <section class="sobre" id="sobre"><div class="wrap"><img class="rev" src="{IMG.format(f2, 1000)}" alt="" loading="lazy">
-<div class="rev"><div class="cab" style="margin:0"><small>Sobre {art} {e(curto)}</small><h2>Cuidado de perto, do jeito que deve ser</h2><p>{e(c['sobre'])}</p></div><ul>{lista}</ul></div></div></section>
+<div class="rev"><div class="cab" style="margin:0"><small>Sobre {"o" if art == "do" else "a"} {e(curto)}</small><h2>Cuidado de perto, do jeito que deve ser</h2><p>{e(c['sobre'])}</p></div>{f'<ul>{lista}</ul>' if lista else ''}</div></div></section>
 <section id="como"><div class="wrap"><div class="cab"><small>Como funciona</small><h2>Simples do começo ao fim</h2></div><div class="passos">{passos}</div></div></section>
 <div class="faixa"><div class="wrap"><div class="box rev"><div><h2>{e(c['cta'])} hoje mesmo</h2><p>Resposta rápida pelo {canal}.</p></div><a class="btn lt" href="{link}" {alvo}>{icon}{e(c['cta'])}</a></div></div></div>
 <section class="contato" id="contato" style="padding-top:0"><div class="wrap"><div><div class="cab"><small>Contato</small><h2>Fale com a gente</h2></div><dl>{"".join(contato)}</dl></div>
