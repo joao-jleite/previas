@@ -1,0 +1,8 @@
+{
+  "name": "previas-sinal",
+  "main": "worker.js",
+  "compatibility_date": "2026-09-01",
+  "d1_databases": [
+    { "binding": "DB", "database_name": "previas-sinal", "database_id": "230f6858-aa31-4f0f-b6a7-d584e65a19a3" }
+  ]
+}

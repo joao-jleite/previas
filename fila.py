@@ -7,6 +7,7 @@ import json
 import re
 import sys
 import urllib.parse
+import zlib
 from pathlib import Path
 
 RAIZ = Path(__file__).parent
@@ -59,7 +60,15 @@ def main(arq):
         nome = l.get("nome_email") or l["nome"]
         # Artigo pelo primeiro termo do nome (Espaço/Studio/Centro... são masculinos)
         art = l_art if (l_art := l.get("artigo")) in ("do", "da") else "do" if nome.split()[0].lower() in ("espaço", "studio", "estúdio", "centro", "consultório", "instituto", "ateliê", "buffet", "colégio", "núcleo") else "da"
-        assunto = f"Fiz uma prévia do site {art} {nome}"
+        # Teste A/B do assunto (21/10): metade fixa por e-mail; a variante vai para envios.json via reg.py
+        variante = "AB"[zlib.crc32(to.encode()) % 2]
+        primeiro = re.match(r"Olá,\s+([A-ZÀ-Ú][\wÀ-ú]+)", l.get("saudacao") or "")
+        if variante == "A":
+            assunto = f"Fiz uma prévia do site {art} {nome}"
+        elif primeiro:
+            assunto = f"{primeiro.group(1)}, montei uma prévia do seu site"
+        else:
+            assunto = f"Prévia do novo site {art} {nome}"
         corpo = CORPO.format(saudacao=l.get("saudacao") or f"Olá, equipe {art} {nome}.", gancho=l["gancho"].strip(), link=link,
                              frase_site=l.get("frase_site") or ("Como não encontrei um site próprio de vocês, montei uma prévia de como ele poderia ficar, com os serviços que vocês divulgam e o botão direto para o " + ("WhatsApp:" if len(re.sub(r"\D", "", l.get("whatsapp_ou_telefone") or "")) in (11, 13) else "contato:")))
         if (l.get("uf") or "SP").upper() != "SP":
@@ -74,7 +83,8 @@ def main(arq):
                 corpo = corpo.replace(a, b)
         q = urllib.parse.urlencode({"view": "cm", "fs": "1", "to": to, "su": assunto, "body": corpo},
                                    quote_via=urllib.parse.quote)
-        fila.append({"to": to, "nome": l["nome"], "assunto": assunto, "corpo": corpo,
+        fila.append({"to": to, "nome": l["nome"], "assunto": assunto, "corpo": corpo, "variante": variante,
+                     "previa": link.rstrip("/").rsplit("/", 1)[-1],
                      "compose_url": f"https://mail.google.com/mail/u/{CONTA}/?{q}"})
     (RAIZ / "fila.json").write_text(json.dumps(fila, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"{len(fila)} e-mails na fila")

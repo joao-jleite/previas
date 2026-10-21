@@ -7,6 +7,7 @@ Usa só dados públicos do lead + fotos livres do Unsplash por segmento (nada co
 """
 import html
 import json
+import urllib.parse
 import re
 import zlib
 import sys
@@ -14,6 +15,8 @@ import unicodedata
 from pathlib import Path
 
 BASE_URL = "https://joao-jleite.github.io/previas"
+# Worker da Cloudflare (pasta contador/) que conta visitas e cliques em "quero este site" por slug
+SINAL = "https://previas-sinal.joao-jleite3.workers.dev"
 OUT = Path(__file__).parent / "docs"
 IMG = "https://images.unsplash.com/photo-{}?auto=format&fit=crop&w={}&q=80"
 STAR = "M12 2l2.4 6.6L21 9l-5 4.6L17.5 21 12 17.3 6.5 21 8 13.6 3 9l6.6-.4z"
@@ -201,7 +204,7 @@ body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background
 h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.02em;line-height:1.12;margin:0}
 a{color:inherit}img{display:block;max-width:100%}
 .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
-.aviso{background:#1c1917;color:#d6d3d1;font-size:12.5px;text-align:center;padding:7px 16px}.aviso a{color:#fff}
+.aviso{background:#1c1917;color:#d6d3d1;font-size:12.5px;text-align:center;padding:7px 16px}.aviso a{color:#fff}.aviso .quero{display:inline-block;margin-left:8px;background:#fff;color:#1c1917;font-weight:600;text-decoration:none;padding:3px 10px;border-radius:99px}
 nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
 .marca{display:flex;align-items:center;gap:10px;font-weight:600;text-decoration:none;font-size:16px;min-width:0}
@@ -340,6 +343,10 @@ def pagina(lead: dict) -> str:
         tit_contato = "Fale com a gente"
         passos_lista = c["passos"]
     passos = "".join(f'<div class="passo rev"><span>{i + 1}</span><h3>{e(p)}</h3></div>' for i, p in enumerate(passos_lista))
+    # "Quero este site no ar": passa pelo contador (registra o clique) e cai no WhatsApp do João já com a mensagem
+    s = slug(nome)
+    msg = f"Olá, João. Vi a prévia do site {art} {curto} e quero saber como colocá-lo no ar."
+    quero = e(f"{SINAL}/w?" + urllib.parse.urlencode({"s": s, "t": msg}, quote_via=urllib.parse.quote))
 
     return f"""<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8">
@@ -350,7 +357,7 @@ def pagina(lead: dict) -> str:
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body style="{var}">
-<div class="aviso">Prévia de site criada por João Leite para {"o" if art == "do" else "a"} {e(curto)}. Não é o site oficial. <a href="mailto:joao.jleitewrk@gmail.com">joao.jleitewrk@gmail.com</a></div>
+<div class="aviso">Prévia criada por João Leite para {"o" if art == "do" else "a"} {e(curto)} (não é o site oficial). <a class="quero" href="{quero}" target="_blank" rel="noopener">Gostou? Quero este site no ar</a></div>
 <nav><div class="wrap"><a class="marca" href="#inicio"><i>{e(inicial)}</i><span>{e(curto)}</span></a>
 <div class="links"><a href="#servicos">{rot}</a><a href="#sobre">Sobre</a><a href="#como">Como funciona</a><a href="#contato">Contato</a></div>
 <a class="btn sm" href="{link}" {alvo}>{e(c['cta'])}</a></div></nav>
@@ -371,8 +378,9 @@ def pagina(lead: dict) -> str:
 <div class="faixa"><div class="wrap"><div class="box rev"><div><h2>{e(c['cta'])} hoje mesmo</h2><p>Resposta rápida pelo {canal}.</p></div><a class="btn lt" href="{link}" {alvo}>{icon}{e(c['cta'])}</a></div></div></div>
 <section class="contato" id="contato" style="padding-top:0"><div class="wrap"><div><div class="cab"><small>Contato</small><h2>{tit_contato}</h2></div><dl>{"".join(contato)}</dl></div>
 {f'<div class="mapa"><iframe src="{mapa}" loading="lazy" title="Mapa"></iframe></div>' if mapa else ''}</div></section>
-<footer><div class="wrap"><span>© 2026 {e(curto)}{(" · " + e(cidade)) if cidade else ""}</span><span>Prévia por João Leite</span></div></footer>
+<footer><div class="wrap"><span>© 2026 {e(curto)}{(" · " + e(cidade)) if cidade else ""}</span><span><a href="{quero}" target="_blank" rel="noopener">Prévia por João Leite</a></span></div></footer>
 {flutuante}
+<script>if(location.hostname.endsWith('github.io')&&!/[?&]nt=1/.test(location.search))navigator.sendBeacon('{SINAL}/v?s={s}');</script>
 <script>const io=new IntersectionObserver(es=>es.forEach(x=>{{if(x.isIntersecting){{x.target.classList.add('on');io.unobserve(x.target)}}}}),{{threshold:.12}});document.querySelectorAll('.rev').forEach(el=>io.observe(el));</script>
 </body></html>"""
 
