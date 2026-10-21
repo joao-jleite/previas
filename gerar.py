@@ -8,6 +8,7 @@ Usa só dados públicos do lead + fotos livres do Unsplash por segmento (nada co
 import html
 import json
 import re
+import zlib
 import sys
 import unicodedata
 from pathlib import Path
@@ -135,6 +136,12 @@ SEGMENTOS = [
         desc=["Orçamento claro antes do serviço.", "Equipe experiente.", "Peças e produtos de qualidade.", "Atendimento ágil."],
         icone="M5 11l2-5h10l2 5h1v6h-2v2h-2v-2H8v2H6v-2H4v-6zm2.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm9 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z")),
 ]
+# Pares extras de fotos (Unsplash, conferidas em 21/10/2026) para as prévias não ficarem todas iguais
+POOL_EXTRA = {
+    "nutri": [["1547592180-85f173990554", "1556911073-a517e752729c"], ["1767277672167-18105701959b", "1505576399279-565b52d4ac71"], ["1535914254981-b5012eebbd15", "1543362906-acfc16c67564"]],
+    "fono": [["1771765767087-ce71e4a7916a", "1728138240695-54ebc33215f2"], ["1708686816818-2b018e0c1296", "1771765767087-ce71e4a7916a"]],
+}
+FONO_ADULTO = ["1758273241078-8eec353836be", "1758273240631-59d44c8f5b66"]
 PADRAO = next(cfg for k, _, cfg in SEGMENTOS if k == "estetica")  # estética como visual neutro de serviço
 
 
@@ -276,7 +283,16 @@ def pagina(lead: dict) -> str:
     q = re.sub(r"\s+", "+", f"{curto} {end} {cidade}".strip())
     mapa = f"https://maps.google.com/maps?q={e(q)}&output=embed" if (end or cidade) else ""
     inicial = re.sub(r"[^A-Za-zÀ-ÿ]", "", curto)[:1].upper() or "•"
-    f1, f2 = (lead.get("fotos") or c["fotos"])[:2]
+    # Variação de fotos dentro do segmento (estável por lead: mesmo nome, mesmo par de fotos)
+    # "c" foi copiado acima (dict(c, ...)), então a chave do segmento sai do original
+    chave_seg = next((k for k, _, cfg in SEGMENTOS if cfg is segmento(lead)), "")
+    pool = [c["fotos"]] + POOL_EXTRA.get(chave_seg, [])
+    base = pool[zlib.crc32(nome.encode("utf-8")) % len(pool)]
+    # Público principal pelo segmento e pelos textos do topo (os serviços citam voz/disfagia até em fono infantil)
+    topo = f"{lead.get('segmento', '')} {lead.get('titulo', '')} {lead.get('subtitulo', '')}"
+    if chave_seg == "fono" and re.search(r"voz|adult|\baudiolog|auditiv|gaguei|oratória|público", topo, re.I) and not re.search(r"crian|bebê|bebe|infantil|materno|famíli", topo, re.I):
+        base = FONO_ADULTO  # fono de adulto não combina com foto de criança
+    f1, f2 = (lead.get("fotos") or base)[:2]
     var = f"--c:{c['cor']};--d:{c['escura']};--s:{c['suave']}"
     # Artigo do nome: "da Clínica", "do Espaço"
     art = l_art if (l_art := lead.get("artigo")) in ("do", "da") else "do" if curto.split()[0].lower() in ("espaço", "studio", "estúdio", "centro", "consultório", "instituto", "ateliê", "buffet", "colégio", "núcleo") else "da"
@@ -285,9 +301,10 @@ def pagina(lead: dict) -> str:
     forte = [d for d in difs if re.search(r"nota|avalia|anos|desde|★", d, re.I)]
     selo = forte[0] if forte else (f"Atendimento em {cidade}" if cidade else seg_txt)
     chips = "".join(f"<li>{CHECK}{e(d)}</li>" for d in [d for d in difs if d != selo][:3])
+    dserv = [d for d in (lead.get("desc_servicos") or []) if d]
     cards = "".join(
         f'<article class="card rev"><span class="ic">{svg(c["icone"], 26)}</span>'
-        f'<h3>{e(s)}</h3><p>{e(c["desc"][i % len(c["desc"])])}</p></article>'
+        f'<h3>{e(s)}</h3><p>{e(dserv[i] if i < len(dserv) else c["desc"][i % len(c["desc"])])}</p></article>'
         for i, s in enumerate(servicos))
     # Completa a lista do "Sobre" com os pontos do segmento quando há poucos diferenciais
     # Não repete frase que já apareceu nos cards de serviço
@@ -310,6 +327,7 @@ def pagina(lead: dict) -> str:
     tit_serv = "Uma proposta para cada fase" if escola else "O que oferecemos"
     sub_serv = "Do primeiro dia à rotina, tudo pensado para o desenvolvimento das crianças." if escola else "Atendimento pensado para você, do primeiro contato ao resultado."
     em_cidade = f" em {e(cidade)}" if cidade else ""
+    abertura = e(lead["subtitulo"]) if lead.get("subtitulo") else f"{e(seg_txt)} com atenção de verdade{em_cidade}."
     # Profissional autônomo (lead com "saudacao"): página fala em 1ª pessoa, sem "equipe"/"oferecemos"
     solo = bool(lead.get("saudacao"))
     if solo:
@@ -339,7 +357,7 @@ def pagina(lead: dict) -> str:
 <header class="hero" id="inicio"><div class="wrap">
 <div><span class="tag">{e(seg_txt)}{(" · " + e(local)) if local else ""}</span>
 <h1>{e(lead.get('titulo') or c['titulo'])}</h1>
-<p class="lead">{e(seg_txt)} com atenção de verdade{em_cidade}. {fale} e tire suas dúvidas em poucos minutos.</p>
+<p class="lead">{abertura} {fale} e tire suas dúvidas em poucos minutos.</p>
 <div class="acoes"><a class="btn" href="{link}" {alvo}>{icon}{e(c['cta'])}</a><a class="ghost" href="#servicos">Ver {rot.lower()}</a></div>
 {f'<ul class="chips">{chips}</ul>' if chips else ''}</div>
 <div class="foto"><img src="{IMG.format(f1, 1100)}" alt="" loading="eager">
@@ -348,7 +366,7 @@ def pagina(lead: dict) -> str:
 <section id="servicos"><div class="wrap"><div class="cab"><small>{rot}</small><h2>{tit_serv}</h2><p>{sub_serv}</p></div>
 <div class="grid">{cards}</div></div></section>
 <section class="sobre" id="sobre"><div class="wrap"><img class="rev" src="{IMG.format(f2, 1000)}" alt="" loading="lazy">
-<div class="rev"><div class="cab" style="margin:0"><small>Sobre {"o" if art == "do" else "a"} {e(curto)}</small><h2>Cuidado de perto, do jeito que deve ser</h2><p>{e(c['sobre'])}</p></div>{f'<ul>{lista}</ul>' if lista else ''}</div></div></section>
+<div class="rev"><div class="cab" style="margin:0"><small>Sobre {"o" if art == "do" else "a"} {e(curto)}</small><h2>{e(lead.get('titulo_sobre') or 'Cuidado de perto, do jeito que deve ser')}</h2><p>{e(c['sobre'])}</p></div>{f'<ul>{lista}</ul>' if lista else ''}</div></div></section>
 <section id="como"><div class="wrap"><div class="cab"><small>Como funciona</small><h2>Simples do começo ao fim</h2></div><div class="passos">{passos}</div></div></section>
 <div class="faixa"><div class="wrap"><div class="box rev"><div><h2>{e(c['cta'])} hoje mesmo</h2><p>Resposta rápida pelo {canal}.</p></div><a class="btn lt" href="{link}" {alvo}>{icon}{e(c['cta'])}</a></div></div></div>
 <section class="contato" id="contato" style="padding-top:0"><div class="wrap"><div><div class="cab"><small>Contato</small><h2>{tit_contato}</h2></div><dl>{"".join(contato)}</dl></div>
