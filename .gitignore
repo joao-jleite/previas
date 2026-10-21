@@ -15,3 +15,5 @@ telegram_*.json
 *.lock
 ouvinte.log
 *.md.tmp
+ESPEC-LEADS.md
+ja-contatados.txt

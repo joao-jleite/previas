@@ -62,6 +62,10 @@ def main(arq):
         assunto = f"Fiz uma prévia do site {art} {nome}"
         corpo = CORPO.format(saudacao=l.get("saudacao") or f"Olá, equipe {art} {nome}.", gancho=l["gancho"].strip(), link=link,
                              frase_site=l.get("frase_site") or ("Como não encontrei um site próprio de vocês, montei uma prévia de como ele poderia ficar, com os serviços que vocês divulgam e o botão direto para o " + ("WhatsApp:" if len(re.sub(r"\D", "", l.get("whatsapp_ou_telefone") or "")) in (11, 13) else "contato:")))
+        if (l.get("uf") or "SP").upper() != "SP":
+            # Lead de fora de SP: "Grande São Paulo" soaria distante; o trabalho é remoto
+            corpo = corpo.replace("Sou desenvolvedor de sites na Grande São Paulo.", "Sou desenvolvedor de sites em São Paulo e atendo clientes de todo o Brasil, com todo o processo feito a distância.")
+            corpo = corpo.replace("Desenvolvimento de Sites | Grande São Paulo", "Desenvolvimento de Sites | Atendimento em todo o Brasil")
         if l.get("saudacao"):
             # Profissional autônomo: trata por "você" no corpo inteiro
             for a, b in (("site próprio de vocês", "site próprio"), ("serviços que vocês divulgam", "serviços que você divulga"),
