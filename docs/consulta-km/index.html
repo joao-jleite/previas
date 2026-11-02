@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consulta de Rotas e Quilometragem</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f6f8; --card:#fff; --ink:#14202b; --muted:#5d6b78; --line:#e1e6eb;
+    --brand:#0f6b5c; --brand-ink:#fff; --accent:#f2a516; --err:#b3261e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+  .faixa{background:var(--ink);color:#fff;font-size:14px;padding:10px 16px;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;text-align:center}
+  .faixa a{color:#14202b;background:var(--accent);padding:6px 12px;border-radius:6px;text-decoration:none;font-weight:600}
+  header{padding:22px 16px 6px;max-width:1180px;margin:0 auto}
+  header h1{margin:0;font-size:24px;letter-spacing:-.01em}
+  header p{margin:6px 0 0;color:var(--muted);font-size:15px}
+  main{max-width:1180px;margin:0 auto;padding:12px 16px 32px;display:grid;grid-template-columns:400px 1fr;gap:16px}
+  @media (max-width:900px){main{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin:0 0 6px}
+  .ponto{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+  .ponto .tag{flex:0 0 26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .ponto input{flex:1;min-width:0}
+  input[type=text],input[type=number]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:15px;background:#fff}
+  input:focus{outline:2px solid #9fd3c8;border-color:var(--brand)}
+  .rem{border:0;background:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 6px}
+  .linha{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  button.sec{border:1px dashed var(--brand);color:var(--brand);background:#fff;border-radius:8px;padding:9px 12px;font:inherit;font-weight:600;cursor:pointer}
+  button.pri{width:100%;margin-top:14px;border:0;background:var(--brand);color:var(--brand-ink);border-radius:8px;padding:13px;font:inherit;font-size:16px;font-weight:700;cursor:pointer}
+  button.pri:disabled{opacity:.6;cursor:wait}
+  .opcoes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .check{display:flex;align-items:center;gap:8px;font-size:14px;margin-top:12px}
+  .dica{font-size:12.5px;color:var(--muted);margin-top:8px}
+  #mapa{height:440px;border-radius:12px;border:1px solid var(--line)}
+  @media (max-width:900px){#mapa{height:320px}}
+  .resumo{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+  .kpi b{display:block;font-size:22px;margin-top:2px}
+  .kpi span{font-size:12.5px;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#eef2f5;font-size:12.5px;color:var(--muted)}
+  td.n{text-align:right;white-space:nowrap}
+  .acoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .acoes button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 12px;font:inherit;font-weight:600;cursor:pointer}
+  .erro{color:var(--err);font-size:14px;margin-top:10px;white-space:pre-line}
+  .hist h3{font-size:14px;margin:18px 0 6px}
+  .hist li{font-size:13.5px;margin:4px 0;cursor:pointer;color:var(--brand)}
+  footer{max-width:1180px;margin:0 auto;padding:0 16px 30px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="faixa">Modelo de demonstração para o seu pedido no GetNinjas. Dá para mudar tudo: campos, cores, logo e regras de cálculo.
+  <a href="https://wa.me/5511961551602?text=Ol%C3%A1%2C%20Jo%C3%A3o!%20Vi%20o%20modelo%20de%20consulta%20de%20quilometragem%20e%20quero%20conversar." target="_blank" rel="noopener">Falar com o João</a></div>
+<header>
+  <h1>Consulta de Rotas e Quilometragem</h1>
+  <p>Digite CEPs ou endereços. O sistema traça a rota, soma os quilômetros de cada trecho e calcula o valor.</p>
+</header>
+<main>
+  <section class="card">
+    <label>Pontos da rota</label>
+    <div id="pontos"></div>
+    <div class="linha"><button class="sec" id="add" type="button">+ Adicionar parada</button></div>
+    <div class="opcoes">
+      <div><label for="vkm">Valor por km (R$)</label><input id="vkm" type="number" step="0.01" min="0" value="2.50"></div>
+      <div><label for="taxa">Taxa fixa (R$)</label><input id="taxa" type="number" step="0.01" min="0" value="0"></div>
+    </div>
+    <label class="check"><input id="volta" type="checkbox"> Incluir volta ao ponto de partida</label>
+    <button class="pri" id="calc" type="button">Calcular rota</button>
+    <div class="erro" id="erro"></div>
+    <p class="dica">Exemplos: 01310-100 · Av. Paulista, 1000, São Paulo · Centro, Embu das Artes, SP</p>
+    <div class="hist" id="hist"></div>
+  </section>
+  <section>
+    <div id="mapa"></div>
+    <div class="resumo">
+      <div class="kpi"><span>Distância total</span><b id="kTot">—</b></div>
+      <div class="kpi"><span>Tempo estimado</span><b id="kTempo">—</b></div>
+      <div class="kpi"><span>Valor</span><b id="kValor">—</b></div>
+    </div>
+    <table id="tab" hidden>
+      <thead><tr><th>Trecho</th><th>De → Para</th><th class="n">Km</th><th class="n">Tempo</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div class="acoes" id="acoes" hidden>
+      <button id="copiar" type="button">Copiar resumo</button>
+      <button id="zap" type="button">Enviar resumo no WhatsApp</button>
+    </div>
+  </section>
+</main>
+<footer>Mapa © colaboradores do OpenStreetMap. Rotas por OSRM e endereços por ViaCEP e Nominatim. Modelo feito por João Leite, Desenvolvimento de Sites.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const fmtKm = m => (m / 1000).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + ' km';
+const fmtTempo = s => { const h = Math.floor(s / 3600), m = Math.round((s % 3600) / 60); return h ? `${h} h ${m} min` : `${m} min`; };
+const fmtReal = v => v.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+const letra = i => String.fromCharCode(65 + i);
+
+// ---------- pontos (origem, paradas, destino)
+const pontos = $('#pontos');
+function addPonto(valor = '') {
+  const d = document.createElement('div');
+  d.className = 'ponto';
+  d.innerHTML = `<span class="tag"></span><input type="text" placeholder="CEP ou endereço" autocomplete="off"><button class="rem" type="button" title="Remover">×</button>`;
+  d.querySelector('input').value = valor;
+  d.querySelector('.rem').onclick = () => { if (pontos.children.length > 2) { d.remove(); renumera(); } };
+  d.querySelector('input').addEventListener('keydown', e => { if (e.key === 'Enter') calcular(); });
+  pontos.appendChild(d); renumera();
+}
+function renumera() {
+  [...pontos.children].forEach((d, i) => {
+    d.querySelector('.tag').textContent = letra(i);
+    d.querySelector('input').placeholder = i === 0 ? 'Origem: CEP ou endereço' : (i === pontos.children.length - 1 ? 'Destino: CEP ou endereço' : 'Parada: CEP ou endereço');
+  });
+}
+addPonto('01310-100'); addPonto('Embu das Artes, SP');
+$('#add').onclick = () => { const ult = pontos.lastElementChild; addPonto(); pontos.insertBefore(pontos.lastElementChild, ult); renumera(); };
+
+// ---------- mapa
+const mapa = L.map('mapa').setView([-23.55, -46.63], 10);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19, attribution: '© OpenStreetMap'}).addTo(mapa);
+let camada = L.layerGroup().addTo(mapa);
+
+// ---------- geocodificação: CEP (ViaCEP) e endereço (Nominatim), com cache local
+const cache = JSON.parse(localStorage.getItem('geo-cache') || '{}');
+const espera = ms => new Promise(r => setTimeout(r, ms));
+let ultimoNominatim = 0;
+const norm = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+const dist2 = (a, b) => (a.lat - b.lat) ** 2 + (a.lon - b.lon) ** 2;
+async function nominatim(q, ref) {
+  // política do Nominatim: no máximo 1 consulta por segundo
+  const dt = Date.now() - ultimoNominatim; if (dt < 1100) await espera(1100 - dt);
+  ultimoNominatim = Date.now();
+  const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=5&countrycodes=br&accept-language=pt-BR&q=' + encodeURIComponent(q);
+  const r = await fetch(url); if (!r.ok) throw new Error('busca de endereço indisponível');
+  const lista = (await r.json()).map(x => {
+    const a = x.address || {};
+    const rua = a.road ? a.road + (a.house_number ? ', ' + a.house_number : '') : '';
+    const cidade = a.city || a.town || a.village || a.municipality || '';
+    // rótulo curto: "Rua, nº, bairro, cidade" (o display_name traz região, país etc.)
+    const nome = [rua, a.suburb || a.neighbourhood, cidade].filter(Boolean).join(', ') || x.display_name.split(',').slice(0, 2).join(',');
+    return {lat: +x.lat, lon: +x.lon, nome, cidade};
+  });
+  if (!lista.length) return null;
+  // "Rua X, 500, São Paulo" pode cair em outra cidade com rua parecida:
+  // prefere o resultado cuja cidade aparece no texto digitado; senão, o mais perto do ponto anterior
+  const pedacos = q.split(',').map(norm).filter(Boolean);
+  const naCidade = lista.filter(x => x.cidade && pedacos.includes(norm(x.cidade)));
+  const pool = naCidade.length ? naCidade : lista;
+  if (ref && pool.length > 1) pool.sort((a, b) => dist2(a, ref) - dist2(b, ref));
+  return pool[0];
+}
+async function geocodifica(txt, ref) {
+  const chave = txt.trim().toLowerCase();
+  if (cache[chave]) return cache[chave];
+  let tentativas = [txt], rotulo = txt;
+  const cep = txt.replace(/\D/g, '');
+  if (/^\d{8}$/.test(cep) && txt.replace(/[\d\s.-]/g, '') === '') {
+    const r = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+    const j = r.ok ? await r.json() : {erro: true};
+    if (j.erro) throw new Error(`CEP ${txt} não encontrado`);
+    rotulo = [j.logradouro, j.bairro, `${j.localidade}/${j.uf}`].filter(Boolean).join(', ');
+    // do mais preciso para o mais genérico: rua > bairro > cidade
+    tentativas = [[j.logradouro, j.localidade, j.uf].filter(Boolean).join(', '),
+                  [j.bairro, j.localidade, j.uf].filter(Boolean).join(', '),
+                  `${j.localidade}, ${j.uf}`];
+  }
+  for (const q of tentativas) {
+    const g = await nominatim(q, ref);
+    if (g) { const res = {lat: g.lat, lon: g.lon, rotulo: rotulo === txt ? g.nome : rotulo};
+      cache[chave] = res; localStorage.setItem('geo-cache', JSON.stringify(cache)); return res; }
+  }
+  throw new Error(`Não achei "${txt}". Tente incluir cidade e estado.`);
+}
+
+// ---------- rota (OSRM)
+async function rota(coords) {
+  const pares = coords.map(c => `${c.lon},${c.lat}`).join(';');
+  const r = await fetch(`https://router.project-osrm.org/route/v1/driving/${pares}?overview=full&geometries=geojson&steps=false`);
+  const j = await r.json();
+  if (j.code !== 'Ok') throw new Error('Não foi possível traçar a rota entre esses pontos.');
+  return j.routes[0];
+}
+
+let ultimoResumo = '';
+async function calcular() {
+  const entradas = [...pontos.querySelectorAll('input')].map(i => i.value.trim());
+  $('#erro').textContent = '';
+  if (entradas.some(v => !v)) { $('#erro').textContent = 'Preencha todos os pontos (ou remova a parada vazia).'; return; }
+  const btn = $('#calc'); btn.disabled = true; btn.textContent = 'Calculando…';
+  try {
+    const locais = [];
+    for (const e of entradas) locais.push(await geocodifica(e, locais[locais.length - 1]));
+    const seq = $('#volta').checked ? [...locais, locais[0]] : locais;
+    const r = await rota(seq);
+    camada.clearLayers();
+    const linha = L.geoJSON(r.geometry, {style: {color: '#0f6b5c', weight: 5, opacity: .85}}).addTo(camada);
+    locais.forEach((l, i) => L.marker([l.lat, l.lon]).bindTooltip(`${letra(i)} · ${l.rotulo}`, {permanent: false}).addTo(camada));
+    mapa.fitBounds(linha.getBounds(), {padding: [30, 30]});
+
+    const vkm = parseFloat($('#vkm').value) || 0, taxa = parseFloat($('#taxa').value) || 0;
+    const valor = taxa + vkm * r.distance / 1000;
+    $('#kTot').textContent = fmtKm(r.distance);
+    $('#kTempo').textContent = fmtTempo(r.duration);
+    $('#kValor').textContent = fmtReal(valor);
+
+    const tb = $('#tab tbody'); tb.innerHTML = '';
+    const nomes = seq.map((l, i) => i === seq.length - 1 && $('#volta').checked ? 'A' : letra(i));
+    r.legs.forEach((leg, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${i + 1}</td><td>${nomes[i]} → ${nomes[i + 1]}<br><small style="color:var(--muted)">${seq[i + 1].rotulo}</small></td><td class="n">${fmtKm(leg.distance)}</td><td class="n">${fmtTempo(leg.duration)}</td>`;
+      tb.appendChild(tr);
+    });
+    $('#tab').hidden = false; $('#acoes').hidden = false;
+
+    ultimoResumo = `Rota: ${seq.map(l => l.rotulo).join(' → ')}\nDistância: ${fmtKm(r.distance)} · Tempo: ${fmtTempo(r.duration)}\nValor: ${fmtReal(valor)} (R$ ${vkm.toFixed(2)}/km${taxa ? ` + taxa ${fmtReal(taxa)}` : ''})`;
+    guardaHistorico(entradas, r.distance);
+  } catch (e) {
+    $('#erro').textContent = e.message || 'Erro ao calcular. Tente de novo.';
+  } finally { btn.disabled = false; btn.textContent = 'Calcular rota'; }
+}
+$('#calc').onclick = calcular;
+$('#copiar').onclick = async () => { try { await navigator.clipboard.writeText(ultimoResumo); $('#copiar').textContent = 'Copiado'; setTimeout(() => $('#copiar').textContent = 'Copiar resumo', 1500); } catch { prompt('Copie o resumo:', ultimoResumo); } };
+$('#zap').onclick = () => window.open('https://wa.me/?text=' + encodeURIComponent(ultimoResumo), '_blank', 'noopener');
+
+// ---------- histórico das últimas consultas (só neste navegador)
+function guardaHistorico(entradas, dist) {
+  let h = []; try { h = JSON.parse(localStorage.getItem('hist') || '[]'); } catch {}
+  h = [{entradas, dist, volta: $('#volta').checked}, ...h.filter(x => JSON.stringify(x.entradas) !== JSON.stringify(entradas))].slice(0, 5);
+  try { localStorage.setItem('hist', JSON.stringify(h)); } catch {}
+  mostraHistorico();
+}
+function mostraHistorico() {
+  let h = []; try { h = JSON.parse(localStorage.getItem('hist') || '[]'); } catch {}
+  if (!h.length) { $('#hist').innerHTML = ''; return; }
+  $('#hist').innerHTML = '<h3>Últimas consultas</h3><ul style="padding-left:18px;margin:0">' +
+    h.map((x, i) => `<li data-i="${i}">${x.entradas.join(' → ')} · ${fmtKm(x.dist)}</li>`).join('') + '</ul>';
+  $('#hist').querySelectorAll('li').forEach(li => li.onclick = () => {
+    const x = h[+li.dataset.i]; pontos.innerHTML = ''; x.entradas.forEach(v => addPonto(v));
+    $('#volta').checked = !!x.volta; calcular();
+  });
+}
+mostraHistorico();
+</script>
+</body>
+</html>
