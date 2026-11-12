@@ -4,6 +4,11 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Escola Espaço Mais Educar | Escola de educação infantil e berçário em São Paulo</title>
 <meta name="description" content="Escola Espaço Mais Educar: Escola de educação infantil e berçário em São Paulo. Agendar uma visita pelo e-mail.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://joao-jleite.github.io/previas/escola-espaco-mais-educar/">
+<meta property="og:title" content="Escola Espaço Mais Educar · prévia do seu site">
+<meta property="og:description" content="Um lugar para crescer, brincar e aprender. Toque para ver como ficaria.">
+<meta property="og:image" content="https://joao-jleite.github.io/previas/escola-espaco-mais-educar/cartao.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -13,7 +18,7 @@ body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background
 h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.02em;line-height:1.12;margin:0}
 a{color:inherit}img{display:block;max-width:100%}
 .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
-.aviso{background:#1c1917;color:#d6d3d1;font-size:12.5px;text-align:center;padding:7px 16px}.aviso a{color:#fff}.aviso .quero{display:inline-block;margin-left:8px;background:#fff;color:#1c1917;font-weight:600;text-decoration:none;padding:3px 10px;border-radius:99px}
+.aviso{background:#1c1917;color:#d6d3d1;font-size:12.5px;text-align:center;padding:7px 16px;display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:center;align-items:center}.aviso a{color:#fff}.aviso .quero{display:inline-block;background:#fff;color:#1c1917;font-weight:600;text-decoration:none;padding:3px 10px;border-radius:99px}
 nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
 .marca{display:flex;align-items:center;gap:10px;font-weight:600;text-decoration:none;font-size:16px;min-width:0}
@@ -60,24 +65,51 @@ dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:14px 22px;font-size:
 footer{border-top:1px solid var(--line);padding:34px 0;color:var(--mut);font-size:14px}footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .flt{position:fixed;right:22px;bottom:22px;width:60px;height:60px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 14px 30px -10px rgba(0,0,0,.45);z-index:30}
 .flt svg{width:30px;height:30px}
+/* Camada de venda: fala com o dono do negócio, não com o cliente dele. Fica fora do desenho do site. */
+.dono{position:fixed;left:0;right:0;bottom:0;z-index:40;background:#1c1917;color:#fff;padding:12px 0 calc(12px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .35s ease;box-shadow:0 -14px 34px -14px rgba(0,0,0,.5)}
+.dono.on{transform:none}
+.dono .wrap{display:flex;align-items:center;gap:16px;justify-content:space-between;position:relative}
+.dono p{margin:0;font-size:14px;line-height:1.35;color:#d6d3d1}.dono p b{display:block;font-size:15.5px;color:#fff}
+.dono .bts{display:flex;gap:14px;align-items:center;flex:none}
+.dono a.sim{background:#25d366;color:#062b14;font-weight:700;text-decoration:none;padding:11px 20px;border-radius:999px;font-size:14.5px;white-space:nowrap}
+.dono a.aj{color:#e7e5e4;font-size:13.5px;white-space:nowrap}
+.dono button{background:none;border:0;color:#a8a29e;font-size:24px;line-height:1;cursor:pointer;padding:2px 6px}
+body.barra .flt{bottom:96px}
+body.fim .dono{transform:translateY(110%)}body.fim .flt{opacity:0;pointer-events:none}.flt{transition:opacity .25s,bottom .25s}
+.proposta{background:#1c1917;color:#d6d3d1;padding:84px 0}
+.proposta small{color:#86efac;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:12.5px}
+.proposta h2{color:#fff;font-size:clamp(30px,3.8vw,44px);margin:10px 0 14px;max-width:720px}
+.proposta p.ab{font-size:17px;max-width:640px;margin:0 0 36px}
+.proposta ol{list-style:none;padding:0;margin:0 0 30px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:p}
+.proposta ol li{counter-increment:p;background:#292524;border-radius:20px;padding:24px;color:#e7e5e4;font-size:15.5px}
+.proposta ol li::before{content:counter(p);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#25d366;color:#062b14;font-weight:700;margin-bottom:14px}
+.proposta ol li b{display:block;color:#fff;font-size:17px;margin-bottom:4px}
+.proposta ul{list-style:none;padding:0;margin:0 0 30px;display:flex;flex-wrap:wrap;gap:10px 22px;font-size:15px}
+.proposta ul li{display:flex;gap:8px;align-items:center}.proposta ul svg{color:#86efac;flex:none}
+.proposta .preco{font-size:18px;color:#fff;font-weight:500;margin:0 0 26px;max-width:640px}
+.proposta .acoes a.sim{display:inline-flex;align-items:center;gap:9px;background:#25d366;color:#062b14;font-weight:700;text-decoration:none;padding:15px 26px;border-radius:999px;font-size:16px}
+.proposta .acoes a.aj{display:inline-flex;align-items:center;padding:15px 22px;border-radius:999px;border:1.5px solid #57534e;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
+.proposta .rodape{margin:26px 0 0;font-size:14px;color:#a8a29e}.proposta .rodape a{color:#e7e5e4}
 .rev{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}.rev.on{opacity:1;transform:none}
 @media (max-width:900px){.hero .wrap,.sobre .wrap,.contato .wrap{grid-template-columns:1fr}.links{display:none}.passos{grid-template-columns:1fr}.selo{left:14px}.hero{padding:44px 0 64px}section{padding:72px 0}.faixa .box{padding:36px 28px}}
+@media (max-width:900px){.proposta ol{grid-template-columns:1fr}.proposta{padding:64px 0}}
+@media (max-width:640px){.dono .wrap{flex-wrap:wrap;gap:10px}.dono p{flex:1 1 100%;padding-right:30px}.dono button{position:absolute;right:8px;top:-4px}.dono .bts{flex:1;justify-content:space-between}.dono a.sim{flex:1;text-align:center}body.barra .flt{bottom:138px}.proposta .acoes a{flex:1 1 100%;justify-content:center}}
 @media (max-width:520px){.wrap{padding:0 16px}nav .btn.sm{display:none}}
 </style></head><body style="--c:#c2410c;--d:#7c2d12;--s:#fff7ed">
-<div class="aviso">Prévia criada por João Leite para a Escola Espaço Mais Educar (não é o site oficial). <a class="quero" href="https://previas-sinal.joao-jleite3.workers.dev/w?s=escola-espaco-mais-educar&amp;t=Ol%C3%A1%2C%20Jo%C3%A3o.%20Vi%20a%20pr%C3%A9via%20do%20site%20da%20Escola%20Espa%C3%A7o%20Mais%20Educar%20e%20quero%20saber%20como%20coloc%C3%A1-lo%20no%20ar." target="_blank" rel="noopener">Gostou? Quero este site no ar</a></div>
+<div class="aviso"><span>Prévia feita por João Leite para a Escola Espaço Mais Educar (não é o site oficial).</span><a class="quero" href="https://previas-sinal.joao-jleite3.workers.dev/w?s=escola-espaco-mais-educar&amp;t=Ol%C3%A1%2C%20Jo%C3%A3o.%20Vi%20a%20pr%C3%A9via%20do%20site%20da%20Escola%20Espa%C3%A7o%20Mais%20Educar%20e%20quero%20saber%20como%20coloc%C3%A1-lo%20no%20ar." target="_blank" rel="noopener">Gostou? Quero este site no ar</a></div>
 <nav><div class="wrap"><a class="marca" href="#inicio"><i>E</i><span>Escola Espaço Mais Educar</span></a>
-<div class="links"><a href="#servicos">Turmas</a><a href="#sobre">Sobre</a><a href="#como">Como funciona</a><a href="#contato">Contato</a></div>
+<div class="links"><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a><a href="#como">Como funciona</a><a href="#contato">Contato</a></div>
 <a class="btn sm" href="mailto:escolaespacomaiseducar@gmail.com" >Agendar uma visita</a></div></nav>
 <header class="hero" id="inicio"><div class="wrap">
 <div><span class="tag">Escola de educação infantil e berçário · Vila Romana, São Paulo</span>
 <h1>Um lugar para crescer, brincar e aprender.</h1>
 <p class="lead">Escola de educação infantil e berçário com atenção de verdade em São Paulo. Fale com a equipe da Escola Espaço Mais Educar pelo e-mail e tire suas dúvidas em poucos minutos.</p>
-<div class="acoes"><a class="btn" href="mailto:escolaespacomaiseducar@gmail.com" >Agendar uma visita</a><a class="ghost" href="#servicos">Ver turmas</a></div>
+<div class="acoes"><a class="btn" href="mailto:escolaespacomaiseducar@gmail.com" >Agendar uma visita</a><a class="ghost" href="#servicos">Ver serviços</a></div>
 <ul class="chips"><li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m5 12 4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Sonhar, brincar, descobrir e aprender!</li><li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m5 12 4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Com afeto, a gente aprende!</li></ul></div>
 <div class="foto"><img src="https://images.unsplash.com/photo-1594608661623-aa0bd3a69d98?auto=format&fit=crop&w=1100&q=80" alt="" loading="eager">
 <div class="selo"><b><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 2l2.4 6.6L21 9l-5 4.6L17.5 21 12 17.3 6.5 21 8 13.6 3 9l6.6-.4z" fill="currentColor"/></svg></b>Atendimento em São Paulo</div></div>
 </div></header>
-<section id="servicos"><div class="wrap"><div class="cab"><small>Turmas</small><h2>Uma proposta para cada fase</h2><p>Do primeiro dia à rotina, tudo pensado para o desenvolvimento das crianças.</p></div>
+<section id="servicos"><div class="wrap"><div class="cab"><small>Serviços</small><h2>O que oferecemos</h2><p>Atendimento pensado para você, do primeiro contato ao resultado.</p></div>
 <div class="grid"><article class="card rev"><span class="ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9zM5 13v4c0 2 3 4 7 4s7-2 7-4v-4l-7 4z" fill="currentColor"/></svg></span><h3>Berçário</h3><p>Rotina pensada para cada idade.</p></article><article class="card rev"><span class="ic"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.9V17h2V9zM5 13v4c0 2 3 4 7 4s7-2 7-4v-4l-7 4z" fill="currentColor"/></svg></span><h3>Educação infantil (0 a 6 anos)</h3><p>Equipe próxima das famílias.</p></article></div></div></section>
 <section class="sobre" id="sobre"><div class="wrap"><img class="rev" src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1000&q=80" alt="" loading="lazy">
 <div class="rev"><div class="cab" style="margin:0"><small>Sobre a Escola Espaço Mais Educar</small><h2>Cuidado de perto, do jeito que deve ser</h2><p>Uma rotina pensada para cada fase, equipe próxima das famílias e um ambiente seguro e acolhedor, onde cada criança é vista de verdade.</p></div><ul><li>Com afeto, a gente aprende!</li><li>Ambiente seguro e acolhedor.</li><li>Aprender brincando.</li></ul></div></div></section>
@@ -85,8 +117,21 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--mut);font-siz
 <div class="faixa"><div class="wrap"><div class="box rev"><div><h2>Agendar uma visita hoje mesmo</h2><p>Resposta rápida pelo e-mail.</p></div><a class="btn lt" href="mailto:escolaespacomaiseducar@gmail.com" >Agendar uma visita</a></div></div></div>
 <section class="contato" id="contato" style="padding-top:0"><div class="wrap"><div><div class="cab"><small>Contato</small><h2>Fale com a gente</h2></div><dl><dt>Instagram</dt><dd><a href="https://www.instagram.com/escolaespacomaiseducar/" target="_blank" rel="noopener">https://www.instagram.com/escolaespacomaiseducar/</a></dd><dt>E-mail</dt><dd><a href="mailto:escolaespacomaiseducar@gmail.com">escolaespacomaiseducar@gmail.com</a></dd></dl></div>
 <div class="mapa"><iframe src="https://maps.google.com/maps?q=Escola+Espaço+Mais+Educar+São+Paulo&output=embed" loading="lazy" title="Mapa"></iframe></div></div></section>
+<section class="proposta" id="proposta"><div class="wrap"><small>Recado para a Escola Espaço Mais Educar</small>
+<h2>Gostaram? Eu coloco este site no ar para vocês.</h2><p class="ab">Montei esta prévia com o que é público sobre o trabalho de vocês. Na versão final entram as fotos, os textos e o domínio de vocês.</p>
+<ol><li><b>Vocês escolhem</b>Vocês me mandam as fotos e dizem o que querem mudar.</li><li><b>Eu ajusto</b>Mostro a versão final e só sigo com a aprovação de vocês.</li><li><b>Entra no ar</b>Publico no domínio de vocês, em 7 a 10 dias úteis.</li></ol>
+<ul><li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m5 12 4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Feito para abrir bem no celular</li><li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m5 12 4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Botão de WhatsApp em cada seção</li><li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m5 12 4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Domínio no nome de vocês</li></ul>
+<p class="preco">A partir de R$ 1.500. Você vê a prévia pronta antes de pagar. Não gostou, não paga.</p>
+<div class="acoes"><a class="sim" href="https://previas-sinal.joao-jleite3.workers.dev/w?s=escola-espaco-mais-educar&amp;t=Ol%C3%A1%2C%20Jo%C3%A3o.%20Vi%20a%20pr%C3%A9via%20do%20site%20da%20Escola%20Espa%C3%A7o%20Mais%20Educar%20e%20quero%20saber%20como%20coloc%C3%A1-lo%20no%20ar." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z" fill="currentColor"/></svg>Quero este site no ar</a><a class="aj" href="https://previas-sinal.joao-jleite3.workers.dev/w?s=escola-espaco-mais-educar&amp;t=Ol%C3%A1%2C%20Jo%C3%A3o.%20Vi%20a%20pr%C3%A9via%20do%20site%20da%20Escola%20Espa%C3%A7o%20Mais%20Educar%20e%20queria%20mudar%20uma%20coisa%20antes%20de%20decidir." target="_blank" rel="noopener">Quero mudar alguma coisa</a></div>
+<p class="rodape">João Leite, desenvolvedor de sites · <a href="https://foxer.dev.br" target="_blank" rel="noopener">foxer.dev.br</a></p></div></section>
 <footer><div class="wrap"><span>© 2026 Escola Espaço Mais Educar · São Paulo</span><span><a href="https://previas-sinal.joao-jleite3.workers.dev/w?s=escola-espaco-mais-educar&amp;t=Ol%C3%A1%2C%20Jo%C3%A3o.%20Vi%20a%20pr%C3%A9via%20do%20site%20da%20Escola%20Espa%C3%A7o%20Mais%20Educar%20e%20quero%20saber%20como%20coloc%C3%A1-lo%20no%20ar." target="_blank" rel="noopener">Prévia por João Leite</a></span></div></footer>
 
-<script>const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target)}}),{threshold:.12});document.querySelectorAll('.rev').forEach(el=>io.observe(el));</script>
+<div class="dono"><div class="wrap"><p><b>Este site foi feito para a Escola Espaço Mais Educar.</b>Gostaram? Coloco no ar com as fotos de vocês.</p><div class="bts"><a class="sim" href="https://previas-sinal.joao-jleite3.workers.dev/w?s=escola-espaco-mais-educar&amp;t=Ol%C3%A1%2C%20Jo%C3%A3o.%20Vi%20a%20pr%C3%A9via%20do%20site%20da%20Escola%20Espa%C3%A7o%20Mais%20Educar%20e%20quero%20saber%20como%20coloc%C3%A1-lo%20no%20ar." target="_blank" rel="noopener">Quero este site</a><a class="aj" href="https://previas-sinal.joao-jleite3.workers.dev/w?s=escola-espaco-mais-educar&amp;t=Ol%C3%A1%2C%20Jo%C3%A3o.%20Vi%20a%20pr%C3%A9via%20do%20site%20da%20Escola%20Espa%C3%A7o%20Mais%20Educar%20e%20queria%20mudar%20uma%20coisa%20antes%20de%20decidir." target="_blank" rel="noopener">Pedir um ajuste</a><button type="button" aria-label="Fechar">×</button></div></div></div>
+<script>(function(){var b=document.querySelector('.dono');if(!b)return;var f=0;
+function v(){if(f)return;if(scrollY>520){b.classList.add('on');document.body.classList.add('barra')}}
+addEventListener('scroll',v,{passive:true});
+b.querySelector('button').onclick=function(){f=1;b.classList.remove('on');document.body.classList.remove('barra')};
+var p=document.querySelector('.proposta');if(p&&'IntersectionObserver' in window)new IntersectionObserver(function(es){document.body.classList.toggle('fim',es[0].isIntersecting)},{threshold:.12}).observe(p);})();</script>
 <script>if(location.hostname.endsWith('github.io')&&!/[?&]nt=1/.test(location.search))navigator.sendBeacon('https://previas-sinal.joao-jleite3.workers.dev/v?s=escola-espaco-mais-educar');</script>
+<script>const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target)}}),{threshold:.12});document.querySelectorAll('.rev').forEach(el=>io.observe(el));</script>
 </body></html>

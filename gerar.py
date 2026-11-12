@@ -204,7 +204,7 @@ body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background
 h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.02em;line-height:1.12;margin:0}
 a{color:inherit}img{display:block;max-width:100%}
 .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
-.aviso{background:#1c1917;color:#d6d3d1;font-size:12.5px;text-align:center;padding:7px 16px}.aviso a{color:#fff}.aviso .quero{display:inline-block;margin-left:8px;background:#fff;color:#1c1917;font-weight:600;text-decoration:none;padding:3px 10px;border-radius:99px}
+.aviso{background:#1c1917;color:#d6d3d1;font-size:12.5px;text-align:center;padding:7px 16px;display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:center;align-items:center}.aviso a{color:#fff}.aviso .quero{display:inline-block;background:#fff;color:#1c1917;font-weight:600;text-decoration:none;padding:3px 10px;border-radius:99px}
 nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
 .marca{display:flex;align-items:center;gap:10px;font-weight:600;text-decoration:none;font-size:16px;min-width:0}
@@ -251,10 +251,44 @@ dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:14px 22px;font-size:
 footer{border-top:1px solid var(--line);padding:34px 0;color:var(--mut);font-size:14px}footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .flt{position:fixed;right:22px;bottom:22px;width:60px;height:60px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 14px 30px -10px rgba(0,0,0,.45);z-index:30}
 .flt svg{width:30px;height:30px}
+/* Camada de venda: fala com o dono do negócio, não com o cliente dele. Fica fora do desenho do site. */
+.dono{position:fixed;left:0;right:0;bottom:0;z-index:40;background:#1c1917;color:#fff;padding:12px 0 calc(12px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .35s ease;box-shadow:0 -14px 34px -14px rgba(0,0,0,.5)}
+.dono.on{transform:none}
+.dono .wrap{display:flex;align-items:center;gap:16px;justify-content:space-between;position:relative}
+.dono p{margin:0;font-size:14px;line-height:1.35;color:#d6d3d1}.dono p b{display:block;font-size:15.5px;color:#fff}
+.dono .bts{display:flex;gap:14px;align-items:center;flex:none}
+.dono a.sim{background:#25d366;color:#062b14;font-weight:700;text-decoration:none;padding:11px 20px;border-radius:999px;font-size:14.5px;white-space:nowrap}
+.dono a.aj{color:#e7e5e4;font-size:13.5px;white-space:nowrap}
+.dono button{background:none;border:0;color:#a8a29e;font-size:24px;line-height:1;cursor:pointer;padding:2px 6px}
+body.barra .flt{bottom:96px}
+body.fim .dono{transform:translateY(110%)}body.fim .flt{opacity:0;pointer-events:none}.flt{transition:opacity .25s,bottom .25s}
+.proposta{background:#1c1917;color:#d6d3d1;padding:84px 0}
+.proposta small{color:#86efac;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:12.5px}
+.proposta h2{color:#fff;font-size:clamp(30px,3.8vw,44px);margin:10px 0 14px;max-width:720px}
+.proposta p.ab{font-size:17px;max-width:640px;margin:0 0 36px}
+.proposta ol{list-style:none;padding:0;margin:0 0 30px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:p}
+.proposta ol li{counter-increment:p;background:#292524;border-radius:20px;padding:24px;color:#e7e5e4;font-size:15.5px}
+.proposta ol li::before{content:counter(p);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#25d366;color:#062b14;font-weight:700;margin-bottom:14px}
+.proposta ol li b{display:block;color:#fff;font-size:17px;margin-bottom:4px}
+.proposta ul{list-style:none;padding:0;margin:0 0 30px;display:flex;flex-wrap:wrap;gap:10px 22px;font-size:15px}
+.proposta ul li{display:flex;gap:8px;align-items:center}.proposta ul svg{color:#86efac;flex:none}
+.proposta .preco{font-size:18px;color:#fff;font-weight:500;margin:0 0 26px;max-width:640px}
+.proposta .acoes a.sim{display:inline-flex;align-items:center;gap:9px;background:#25d366;color:#062b14;font-weight:700;text-decoration:none;padding:15px 26px;border-radius:999px;font-size:16px}
+.proposta .acoes a.aj{display:inline-flex;align-items:center;padding:15px 22px;border-radius:999px;border:1.5px solid #57534e;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
+.proposta .rodape{margin:26px 0 0;font-size:14px;color:#a8a29e}.proposta .rodape a{color:#e7e5e4}
 .rev{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}.rev.on{opacity:1;transform:none}
 @media (max-width:900px){.hero .wrap,.sobre .wrap,.contato .wrap{grid-template-columns:1fr}.links{display:none}.passos{grid-template-columns:1fr}.selo{left:14px}.hero{padding:44px 0 64px}section{padding:72px 0}.faixa .box{padding:36px 28px}}
+@media (max-width:900px){.proposta ol{grid-template-columns:1fr}.proposta{padding:64px 0}}
+@media (max-width:640px){.dono .wrap{flex-wrap:wrap;gap:10px}.dono p{flex:1 1 100%;padding-right:30px}.dono button{position:absolute;right:8px;top:-4px}.dono .bts{flex:1;justify-content:space-between}.dono a.sim{flex:1;text-align:center}body.barra .flt{bottom:138px}.proposta .acoes a{flex:1 1 100%;justify-content:center}}
 @media (max-width:520px){.wrap{padding:0 16px}nav .btn.sm{display:none}}
 """
+
+
+JS_DONO = """<script>(function(){var b=document.querySelector('.dono');if(!b)return;var f=0;
+function v(){if(f)return;if(scrollY>520){b.classList.add('on');document.body.classList.add('barra')}}
+addEventListener('scroll',v,{passive:true});
+b.querySelector('button').onclick=function(){f=1;b.classList.remove('on');document.body.classList.remove('barra')};
+var p=document.querySelector('.proposta');if(p&&'IntersectionObserver' in window)new IntersectionObserver(function(es){document.body.classList.toggle('fim',es[0].isIntersecting)},{threshold:.12}).observe(p);})();</script>"""
 
 
 def pagina(lead: dict) -> str:
@@ -347,6 +381,34 @@ def pagina(lead: dict) -> str:
     s = slug(nome)
     msg = f"Olá, João. Vi a prévia do site {art} {curto} e quero saber como colocá-lo no ar."
     quero = e(f"{SINAL}/w?" + urllib.parse.urlencode({"s": s, "t": msg}, quote_via=urllib.parse.quote))
+    msg_aj = f"Olá, João. Vi a prévia do site {art} {curto} e queria mudar uma coisa antes de decidir."
+    ajuste = e(f"{SINAL}/w?" + urllib.parse.urlencode({"s": s, "t": msg_aj}, quote_via=urllib.parse.quote))
+    # Camada de venda (fala com o dono). Só promessas já públicas em foxer.dev.br e no PLAYBOOK:
+    # prévia antes de pagar, a partir de R$ 1.500, 7 a 10 dias úteis, domínio no nome do cliente.
+    m_nome = re.match(r"\s*Ol[áa],\s*(.+?)!", lead.get("saudacao") or "")
+    o_a = "o" if art == "do" else "a"
+    if m_nome:  # autônomo: trata por "você" e pelo primeiro nome
+        primeiro = e(m_nome.group(1))
+        barra_txt = f"<b>{primeiro}, este site foi feito para você.</b>Gostou? Coloco no ar com as suas fotos."
+        prop_rot, prop_tit = f"Recado para {primeiro}", "Gostou? Eu coloco este site no ar para você."
+        prop_ab = "Montei esta prévia com o que é público sobre o seu trabalho. Na versão final entram as suas fotos, os seus textos e o seu domínio."
+        p1, p2, p3 = "Você me manda as fotos e diz o que quer mudar.", "Mostro a versão final e só sigo com a sua aprovação.", "Publico no seu domínio, em 7 a 10 dias úteis."
+        t1, dom = "Você escolhe", "Domínio no seu nome"
+    else:  # empresa: "vocês"
+        barra_txt = f"<b>Este site foi feito para {o_a} {e(curto)}.</b>Gostaram? Coloco no ar com as fotos de vocês."
+        prop_rot, prop_tit = f"Recado para {o_a} {e(curto)}", "Gostaram? Eu coloco este site no ar para vocês."
+        prop_ab = "Montei esta prévia com o que é público sobre o trabalho de vocês. Na versão final entram as fotos, os textos e o domínio de vocês."
+        p1, p2, p3 = "Vocês me mandam as fotos e dizem o que querem mudar.", "Mostro a versão final e só sigo com a aprovação de vocês.", "Publico no domínio de vocês, em 7 a 10 dias úteis."
+        t1, dom = "Vocês escolhem", "Domínio no nome de vocês"
+    proposta = f"""<section class="proposta" id="proposta"><div class="wrap"><small>{prop_rot}</small>
+<h2>{prop_tit}</h2><p class="ab">{prop_ab}</p>
+<ol><li><b>{t1}</b>{p1}</li><li><b>Eu ajusto</b>{p2}</li><li><b>Entra no ar</b>{p3}</li></ol>
+<ul><li>{CHECK}Feito para abrir bem no celular</li><li>{CHECK}Botão de WhatsApp em cada seção</li><li>{CHECK}{dom}</li></ul>
+<p class="preco">A partir de R$ 1.500. Você vê a prévia pronta antes de pagar. Não gostou, não paga.</p>
+<div class="acoes"><a class="sim" href="{quero}" target="_blank" rel="noopener">{svg(WA, 20)}Quero este site no ar</a><a class="aj" href="{ajuste}" target="_blank" rel="noopener">Quero mudar alguma coisa</a></div>
+<p class="rodape">João Leite, desenvolvedor de sites · <a href="https://foxer.dev.br" target="_blank" rel="noopener">foxer.dev.br</a></p></div></section>"""
+    barra = f"""<div class="dono"><div class="wrap"><p>{barra_txt}</p><div class="bts"><a class="sim" href="{quero}" target="_blank" rel="noopener">Quero este site</a><a class="aj" href="{ajuste}" target="_blank" rel="noopener">Pedir um ajuste</a><button type="button" aria-label="Fechar">×</button></div></div></div>"""
+    og_desc = lead.get("titulo") or c["titulo"]
 
     return f"""<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8">
@@ -354,10 +416,15 @@ def pagina(lead: dict) -> str:
 <meta name="robots" content="noindex,nofollow">
 <title>{e(curto)} | {e(seg_txt)}{em_cidade}</title>
 <meta name="description" content="{e(curto)}: {e(seg_txt)}{em_cidade}. {e(c['cta'])} pelo {canal}.">
+<meta property="og:type" content="website"><meta property="og:url" content="{BASE_URL}/{s}/">
+<meta property="og:title" content="{e(curto)} · prévia do seu site">
+<meta property="og:description" content="{e(og_desc)} Toque para ver como ficaria.">
+<meta property="og:image" content="{BASE_URL}/{s}/cartao.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body style="{var}">
-<div class="aviso">Prévia criada por João Leite para {"o" if art == "do" else "a"} {e(curto)} (não é o site oficial). <a class="quero" href="{quero}" target="_blank" rel="noopener">Gostou? Quero este site no ar</a></div>
+<div class="aviso"><span>Prévia feita por João Leite para {"o" if art == "do" else "a"} {e(curto)} (não é o site oficial).</span><a class="quero" href="{quero}" target="_blank" rel="noopener">Gostou? Quero este site no ar</a></div>
 <nav><div class="wrap"><a class="marca" href="#inicio"><i>{e(inicial)}</i><span>{e(curto)}</span></a>
 <div class="links"><a href="#servicos">{rot}</a><a href="#sobre">Sobre</a><a href="#como">Como funciona</a><a href="#contato">Contato</a></div>
 <a class="btn sm" href="{link}" {alvo}>{e(c['cta'])}</a></div></nav>
@@ -378,10 +445,39 @@ def pagina(lead: dict) -> str:
 <div class="faixa"><div class="wrap"><div class="box rev"><div><h2>{e(c['cta'])} hoje mesmo</h2><p>Resposta rápida pelo {canal}.</p></div><a class="btn lt" href="{link}" {alvo}>{icon}{e(c['cta'])}</a></div></div></div>
 <section class="contato" id="contato" style="padding-top:0"><div class="wrap"><div><div class="cab"><small>Contato</small><h2>{tit_contato}</h2></div><dl>{"".join(contato)}</dl></div>
 {f'<div class="mapa"><iframe src="{mapa}" loading="lazy" title="Mapa"></iframe></div>' if mapa else ''}</div></section>
+{proposta}
 <footer><div class="wrap"><span>© 2026 {e(curto)}{(" · " + e(cidade)) if cidade else ""}</span><span><a href="{quero}" target="_blank" rel="noopener">Prévia por João Leite</a></span></div></footer>
 {flutuante}
+{barra}
+{JS_DONO}
 <script>if(location.hostname.endsWith('github.io')&&!/[?&]nt=1/.test(location.search))navigator.sendBeacon('{SINAL}/v?s={s}');</script>
 <script>const io=new IntersectionObserver(es=>es.forEach(x=>{{if(x.isIntersecting){{x.target.classList.add('on');io.unobserve(x.target)}}}}),{{threshold:.12}});document.querySelectorAll('.rev').forEach(el=>io.observe(el));</script>
+</body></html>"""
+
+
+def cartao(lead: dict) -> str:
+    """HTML do cartão de link (1200x630). Cores chapadas de propósito: o PNG fica leve e o WhatsApp mostra."""
+    c = segmento(lead)
+    curto = lead.get("nome_email") or lead["nome"]
+    cidade = lead.get("cidade") or ""
+    seg_txt = frase(re.sub(r"\s*/\s*", " e ", re.sub(r"\s*\(.*?\)", "", lead.get("segmento") or "")))
+    inicial = re.sub(r"[^A-Za-zÀ-ÿ]", "", curto)[:1].upper() or "•"
+    titulo = lead.get("titulo") or c["titulo"]
+    tam = 84 if len(curto) <= 16 else 68 if len(curto) <= 24 else 54  # nome longo não pode estourar a coluna
+    return f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@500;600&display=swap" rel="stylesheet">
+<style>*{{box-sizing:border-box;margin:0}}body{{width:1200px;height:630px;overflow:hidden;font-family:Inter,system-ui,sans-serif;background:{c['suave']};color:#1c1917;display:grid;grid-template-columns:1fr 360px;gap:56px;align-items:center;padding:0 80px}}
+.t{{display:inline-block;background:{c['cor']};color:#fff;font-weight:600;font-size:24px;padding:10px 22px;border-radius:99px;margin-bottom:30px}}
+h1{{font:600 {tam}px/1.05 Fraunces,Georgia,serif;letter-spacing:-.02em}}
+.s{{font-size:30px;color:#57534e;margin-top:22px;font-weight:500}}
+.cel{{width:360px;height:560px;border:12px solid #1c1917;border-radius:52px;background:#fff;overflow:hidden;box-shadow:0 40px 70px -40px rgba(0,0,0,.5)}}
+.topo{{display:flex;align-items:center;gap:12px;padding:20px 22px;border-bottom:2px solid #e7e5e4;font-weight:600;font-size:19px;white-space:nowrap}}
+.topo i{{width:42px;height:42px;border-radius:50%;background:{c['cor']};color:#fff;display:grid;place-items:center;font:600 21px Fraunces,serif;font-style:normal;flex:none}}
+.h{{background:{c['suave']};padding:26px 22px 30px}}.h b{{display:block;font:600 31px/1.12 Fraunces,Georgia,serif;letter-spacing:-.02em}}
+.h span{{display:inline-block;margin-top:22px;background:{c['cor']};color:#fff;font-weight:600;font-size:18px;padding:13px 24px;border-radius:99px}}
+.l{{margin:22px;height:86px;border-radius:18px;border:2px solid #e7e5e4}}</style></head><body>
+<div><span class="t">Prévia do seu site</span><h1>{e(curto)}</h1><p class="s">{e(seg_txt)}{(" · " + e(cidade)) if cidade else ""}</p></div>
+<div class="cel"><div class="topo"><i>{e(inicial)}</i><span style="overflow:hidden;text-overflow:ellipsis">{e(curto)}</span></div><div class="h"><b>{e(titulo)}</b><span>{e(c['cta'])}</span></div><div class="l"></div><div class="l" style="margin-top:0"></div></div>
 </body></html>"""
 
 

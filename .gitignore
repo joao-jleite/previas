@@ -21,3 +21,7 @@ ESPEC-TEXTOS.md
 
 # estado local do wrangler
 contador/.wrangler/
+
+# fila do WhatsApp comercial (telefones e textos de contatos): nunca sobe
+whatsapp_fila.json
+wa_sessao.txt
