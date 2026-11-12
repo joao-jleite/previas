@@ -25,3 +25,8 @@ contador/.wrangler/
 # fila do WhatsApp comercial (telefones e textos de contatos): nunca sobe
 whatsapp_fila.json
 wa_sessao.txt
+
+# scripts e passo a passo do WhatsApp comercial: repo publico, nao sobem
+wa.py
+montar_fila.py
+wa_envio.md
