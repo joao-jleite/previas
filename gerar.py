@@ -404,7 +404,7 @@ def pagina(lead: dict) -> str:
 <h2>{prop_tit}</h2><p class="ab">{prop_ab}</p>
 <ol><li><b>{t1}</b>{p1}</li><li><b>Eu ajusto</b>{p2}</li><li><b>Entra no ar</b>{p3}</li></ol>
 <ul><li>{CHECK}Feito para abrir bem no celular</li><li>{CHECK}Botão de WhatsApp em cada seção</li><li>{CHECK}{dom}</li></ul>
-<p class="preco">A partir de R$ 1.500. Você vê a prévia pronta antes de pagar. Não gostou, não paga.</p>
+<p class="preco">Black Friday: este site por R$ 990 no lugar de R$ 1.500, fechando até 27/11. Você vê a versão com as suas fotos antes de pagar. Não gostou, não paga.</p>
 <div class="acoes"><a class="sim" href="{quero}" target="_blank" rel="noopener">{svg(WA, 20)}Quero este site no ar</a><a class="aj" href="{ajuste}" target="_blank" rel="noopener">Quero mudar alguma coisa</a></div>
 <p class="rodape">João Leite, desenvolvedor de sites · <a href="https://foxer.dev.br" target="_blank" rel="noopener">foxer.dev.br</a></p></div></section>"""
     barra = f"""<div class="dono"><div class="wrap"><p>{barra_txt}</p><div class="bts"><a class="sim" href="{quero}" target="_blank" rel="noopener">Quero este site</a><a class="aj" href="{ajuste}" target="_blank" rel="noopener">Pedir um ajuste</a><button type="button" aria-label="Fechar">×</button></div></div></div>"""
