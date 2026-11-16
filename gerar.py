@@ -131,6 +131,48 @@ SEGMENTOS = [
         cta="Pedir orçamento", passos=["Conte o seu projeto", "Medição e proposta", "Produção e instalação"],
         desc=["Projeto sob medida.", "Materiais de qualidade.", "Acabamento cuidadoso.", "Instalação no prazo combinado."],
         icone="M3 3h18v18H3zm2 2v6h6V5zm8 0v14h6V5zM5 13v6h6v-6z")),
+    # Casa e obra (16/11/2026): ramos em que o cliente procura no Google na hora e um serviço paga o site.
+    # Chaves extras usadas só aqui: tit_serv, sub_serv, sobre_tit, chamada (fim da frase do topo) e galeria.
+    ("vidracaria", r"vidra[cç]|box|espelh|sacada", dict(
+        cor="#0e7490", escura="#083344", suave="#ecfeff", fotos=["1771929662486-f793e08f0f16", "1630699144420-d7bc4e2cee8d"],
+        titulo="Box, espelhos e vidros sob medida para a sua casa.",
+        sobre="Do box do banheiro ao fechamento da sacada, cada peça é medida no local, cortada sob medida e instalada com acabamento limpo e vedação bem feita.",
+        cta="Pedir orçamento", passos=["Chame no WhatsApp", "Medição e orçamento", "Instalação"],
+        desc=["Medido no local e feito sob medida.", "Vidro temperado e ferragens de qualidade.", "Instalação limpa e bem vedada.", "Orçamento claro antes de começar."],
+        tit_serv="O que a gente faz", sub_serv="Vidro sob medida para banheiro, cozinha, janela e sacada, com instalação.",
+        sobre_tit="Vidro bem medido, bem instalado", chamada="Mande uma foto ou as medidas e peça o seu orçamento.",
+        galeria=["1571781418606-70265b9cce90", "1772476361253-90a9be5e0c19", "1611066415956-91ab6f1f57cc"],
+        icone="M4 3h16v18H4zm2 2v14h5V5zm7 0v14h5V5z")),
+    ("marmoraria", r"m[áa]rmor|granit|quartzo|bancada", dict(
+        cor="#8a5a2b", escura="#292524", suave="#faf7f2", fotos=["1682888813913-e13f18692019", "1762304817469-1d6c808324ee"],
+        titulo="Pedras que valorizam a sua casa por muitos anos.",
+        sobre="Bancadas, pias, escadas e soleiras em mármore, granito e quartzo, cortadas sob medida e instaladas com acabamento de borda e encaixe bem resolvidos.",
+        cta="Pedir orçamento", passos=["Chame no WhatsApp", "Medição e escolha da pedra", "Corte e instalação"],
+        desc=["Pedra escolhida com você.", "Corte e acabamento sob medida.", "Instalação com encaixe preciso.", "Orçamento claro antes de começar."],
+        tit_serv="O que a gente faz", sub_serv="Mármore, granito e quartzo para cozinha, banheiro, escada e área externa.",
+        sobre_tit="Acabamento que aparece no detalhe", chamada="Mande a medida ou uma foto do ambiente e peça o seu orçamento.",
+        galeria=["1582667407868-07060cb5e61f", "1760072513457-651955c7074d", "1556912173-46c336c7fd55"],
+        icone="M3 15l9-9 9 9-9 6zm9-6l-5 5 5 3 5-3z")),
+    ("serralheria", r"serralh|port[ãa]o|grade|estrutura met", dict(
+        cor="#b45309", escura="#1c1917", suave="#fffbeb", fotos=["1580047750144-2c7790adf461", "1698664683348-f9f35b809821"],
+        titulo="Portões, grades e estruturas feitos para durar.",
+        sobre="Projeto, fabricação e instalação em ferro e aço, com solda bem feita, pintura caprichada e o portão abrindo do jeito certo no primeiro dia.",
+        cta="Pedir orçamento", passos=["Chame no WhatsApp", "Medição e orçamento", "Fabricação e instalação"],
+        desc=["Feito sob medida para o seu espaço.", "Solda e pintura caprichadas.", "Instalação no prazo combinado.", "Orçamento claro antes de começar."],
+        tit_serv="O que a gente faz", sub_serv="Portões, grades, coberturas e estruturas metálicas, do projeto à instalação.",
+        sobre_tit="Ferro bem soldado, portão bem instalado", chamada="Mande uma foto do local e peça o seu orçamento.",
+        galeria=["1622624583664-675ae6031a8e", "1576169510450-fd0392650023", "1504328345606-18bbc8c9d7d1"],
+        icone="M3 21V7l4-4 4 4v14M13 21V7l4-4 4 4v14M3 12h18M3 17h18")),
+    ("climatizacao", r"ar.condicion|climatiz|refrigera", dict(
+        cor="#0369a1", escura="#0c4a6e", suave="#f0f9ff", fotos=["1761330440311-16e160cad236", "1718203862467-c33159fdc504"],
+        titulo="Ar-condicionado instalado do jeito certo.",
+        sobre="Instalação com tubulação, dreno e elétrica bem feitos, limpeza que tira o mau cheiro e manutenção que faz o aparelho gelar e gastar menos.",
+        cta="Pedir orçamento", passos=["Chame no WhatsApp", "Orçamento", "Instalação ou manutenção"],
+        desc=["Instalação com acabamento limpo.", "Limpeza completa do aparelho.", "Manutenção preventiva.", "Orçamento claro antes de começar."],
+        tit_serv="O que a gente faz", sub_serv="Instalação, limpeza e manutenção de ar-condicionado para casa e empresa.",
+        sobre_tit="Aparelho gelando e sem goteira", chamada="Diga o modelo e o cômodo e peça o seu orçamento.",
+        galeria=["1759772238012-9d5ad59ae637", "1757219525975-03b5984bc6e8", "1776860150250-757406c52438"],
+        icone="M3 5h18v8H3zm3 4h12M7 16l-1 3m6-3v3m5-3 1 3")),
     ("auto", r"auto|mecân|mecan|oficina|funilar|carro|vidra", dict(
         cor="#b91c1c", escura="#450a0a", suave="#fef2f2", fotos=["1633014041037-f5446fb4ce99", "1567808291548-fc3ee04dbcf0"],
         titulo="Seu carro em boas mãos.",
@@ -235,6 +277,7 @@ section{padding:96px 0}
 .card:hover{transform:translateY(-4px);box-shadow:0 24px 48px -28px rgba(0,0,0,.28);border-color:transparent}
 .ic{width:52px;height:52px;border-radius:16px;background:var(--s);color:var(--c);display:grid;place-items:center;margin-bottom:20px}
 .card h3{font-size:21px}.card p{color:var(--mut);margin:8px 0 0;font-size:15px}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.gal img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:20px}@media (max-width:640px){.gal{grid-template-columns:1fr 1fr}.gal img:first-child{grid-column:1/-1}}
 .sobre{background:var(--s)}.sobre .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:center}
 .sobre img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:28px}
 .sobre ul{padding:0;list-style:none;margin:26px 0 0;display:grid;gap:12px}
@@ -365,6 +408,10 @@ def pagina(lead: dict) -> str:
     sub_serv = "Do primeiro dia à rotina, tudo pensado para o desenvolvimento das crianças." if escola else "Atendimento pensado para você, do primeiro contato ao resultado."
     em_cidade = f" em {e(cidade)}" if cidade else ""
     abertura = e(lead["subtitulo"]) if lead.get("subtitulo") else f"{e(seg_txt)} com atenção de verdade{em_cidade}."
+    if c.get("tit_serv"):
+        tit_serv, sub_serv = c["tit_serv"], c["sub_serv"]
+        if not lead.get("subtitulo"):  # casa e obra: sem o "atenção de verdade", que é fala de clínica
+            abertura = f"{e(seg_txt)}{em_cidade}{' e região' if cidade else ''}."
     # Profissional autônomo (lead com "saudacao"): página fala em 1ª pessoa, sem "equipe"/"oferecemos"
     solo = bool(lead.get("saudacao"))
     if solo:
@@ -408,6 +455,12 @@ def pagina(lead: dict) -> str:
 <div class="acoes"><a class="sim" href="{quero}" target="_blank" rel="noopener">{svg(WA, 20)}Quero este site no ar</a><a class="aj" href="{ajuste}" target="_blank" rel="noopener">Quero mudar alguma coisa</a></div>
 <p class="rodape">João Leite, desenvolvedor de sites · <a href="https://foxer.dev.br" target="_blank" rel="noopener">foxer.dev.br</a></p></div></section>"""
     barra = f"""<div class="dono"><div class="wrap"><p>{barra_txt}</p><div class="bts"><a class="sim" href="{quero}" target="_blank" rel="noopener">Quero este site</a><a class="aj" href="{ajuste}" target="_blank" rel="noopener">Pedir um ajuste</a><button type="button" aria-label="Fechar">×</button></div></div></div>"""
+    galeria = ""
+    if c.get("galeria"):
+        fotos_g = "".join(f'<img class="rev" src="{IMG.format(g, 800)}" alt="" loading="lazy">' for g in c["galeria"][:3])
+        nota_g = "Fotos ilustrativas: na versão final entram as fotos dos trabalhos de vocês." if not solo else "Fotos ilustrativas: na versão final entram as fotos dos seus trabalhos."
+        galeria = (f'<section class="galeria" id="trabalhos" style="padding-top:0"><div class="wrap"><div class="cab"><small>Trabalhos</small>'
+                   f'<h2>Alguns serviços feitos</h2><p>{nota_g}</p></div><div class="gal">{fotos_g}</div></div></section>')
     og_desc = lead.get("titulo") or c["titulo"]
 
     return f"""<!doctype html>
@@ -431,7 +484,7 @@ def pagina(lead: dict) -> str:
 <header class="hero" id="inicio"><div class="wrap">
 <div><span class="tag">{e(seg_txt)}{(" · " + e(local)) if local else ""}</span>
 <h1>{e(lead.get('titulo') or c['titulo'])}</h1>
-<p class="lead">{abertura} {fale} e tire suas dúvidas em poucos minutos.</p>
+<p class="lead">{abertura} {e(c["chamada"]) if c.get("chamada") else fale + " e tire suas dúvidas em poucos minutos."}</p>
 <div class="acoes"><a class="btn" href="{link}" {alvo}>{icon}{e(c['cta'])}</a><a class="ghost" href="#servicos">Ver {rot.lower()}</a></div>
 {f'<ul class="chips">{chips}</ul>' if chips else ''}</div>
 <div class="foto"><img src="{IMG.format(f1, 1100)}" alt="" loading="eager">
@@ -439,8 +492,9 @@ def pagina(lead: dict) -> str:
 </div></header>
 <section id="servicos"><div class="wrap"><div class="cab"><small>{rot}</small><h2>{tit_serv}</h2><p>{sub_serv}</p></div>
 <div class="grid">{cards}</div></div></section>
+{galeria}
 <section class="sobre" id="sobre"><div class="wrap"><img class="rev" src="{IMG.format(f2, 1000)}" alt="" loading="lazy">
-<div class="rev"><div class="cab" style="margin:0"><small>Sobre {"o" if art == "do" else "a"} {e(curto)}</small><h2>{e(lead.get('titulo_sobre') or 'Cuidado de perto, do jeito que deve ser')}</h2><p>{e(c['sobre'])}</p></div>{f'<ul>{lista}</ul>' if lista else ''}</div></div></section>
+<div class="rev"><div class="cab" style="margin:0"><small>Sobre {"o" if art == "do" else "a"} {e(curto)}</small><h2>{e(lead.get('titulo_sobre') or c.get('sobre_tit') or 'Cuidado de perto, do jeito que deve ser')}</h2><p>{e(c['sobre'])}</p></div>{f'<ul>{lista}</ul>' if lista else ''}</div></div></section>
 <section id="como"><div class="wrap"><div class="cab"><small>Como funciona</small><h2>Simples do começo ao fim</h2></div><div class="passos">{passos}</div></div></section>
 <div class="faixa"><div class="wrap"><div class="box rev"><div><h2>{e(c['cta'])} hoje mesmo</h2><p>Resposta rápida pelo {canal}.</p></div><a class="btn lt" href="{link}" {alvo}>{icon}{e(c['cta'])}</a></div></div></div>
 <section class="contato" id="contato" style="padding-top:0"><div class="wrap"><div><div class="cab"><small>Contato</small><h2>{tit_contato}</h2></div><dl>{"".join(contato)}</dl></div>
